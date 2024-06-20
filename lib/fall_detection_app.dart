@@ -18,7 +18,7 @@ class FallDetectionApp extends StatelessWidget {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: Routes.onBoardingScreen,
+          initialRoute: Routes.splashScreen,
           onGenerateRoute: appRouter.generateRoute,
         ),
       ),
