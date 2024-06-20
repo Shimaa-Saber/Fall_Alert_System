@@ -2,6 +2,7 @@ import 'package:fall_detection/core/extensions/context_extension.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/core/styles/images/assets.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
+import 'package:fall_detection/feature/profile/presenation/refacor/edit_profile_dialoge.dart';
 import 'package:fall_detection/feature/profile/presenation/widgets/row_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,11 +84,11 @@ class ProfileScreen extends StatelessWidget {
                             onTap: () {
                               showDialog(
                                 context: context,
-                                builder: (_) => const AlertDialog(
-                                  content: Column(
-                                    children: [],
-                                  ),
-                                ),
+
+                                builder: (context) {
+
+                                  return EditProfileDialge();
+                                }
                               );
                             },
                             icon: Icons.edit,

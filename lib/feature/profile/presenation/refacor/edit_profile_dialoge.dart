@@ -5,6 +5,8 @@ import 'package:fall_detection/feature/profile/presenation/widgets/row_info_widg
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../widgets/edit_profile_column.dart';
+
 class EditProfileDialge extends StatelessWidget {
   const EditProfileDialge({
     super.key,
@@ -12,95 +14,100 @@ class EditProfileDialge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: context.height * 0.6,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: context.height * 0.078,
-                left: context.width * 0.05,
-                right: context.width * 0.05,
-                bottom: context.height * 0.1,
-              ),
-              child: Column(
+    return SingleChildScrollView(
+      child: Container(
+        width: context.width*0.9,
+        height: context.height*0.9,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Fall Detection',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            fontSize: 22,
-                          ),
+                  Container(
+                    width: context.width*0.39,
+                    height: context.height*0.39,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 4,color: Colors.blue),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                          image: AssetImage('assets/images/patientfall.png'))
                     ),
                   ),
-                  verticalSpace(48),
-                  const RowInfoWidget(
-                    icon: Icons.male,
-                    text: 'Male',
-                  ),
-                  verticalSpace(16),
-                  const RowInfoWidget(
-                    icon: Icons.phone,
-                    text: '+2 01229526319',
-                  ),
-                  verticalSpace(16),
-                  const RowInfoWidget(
-                    icon: Icons.person_add_alt_rounded,
-                    text: '4 following',
-                  ),
-                  verticalSpace(16),
-                  RowInfoWidget(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => const AlertDialog(
-                          content: EditProfileDialge(),
-                        ),
-                      );
-                    },
-                    icon: Icons.edit,
-                    text: 'Edit Profile',
-                  ),
-                  verticalSpace(16),
-                  RowInfoWidget(
-                    onTap: () {},
-                    icon: Icons.logout_outlined,
-                    text: 'Log out',
-                  ),
-                  verticalSpace(16),
+                  Positioned(
+                     top: context.height*0.24,
+                     left: context.width*0.26,
+                      child: GestureDetector(
+                        onTap: (){},
+                        child: Container(
+                          width: context.width*0.1,
+                            height: context.height*0.034,
+                            color: Color(0xff00A9FF),
+
+                            child: Image(image: AssetImage('assets/images/🦆 icon _camera_.png'),)),
+                      )
+                  )
+                    ,
                 ],
+
               ),
             ),
-          ),
-        ),
-        Positioned(
-          // top: context.height * 0.1,
-          left: context.width * 0.22,
-          right: context.width * 0.22,
-          bottom: context.height * 0.46,
-          child: Container(
-            height: context.height * 0.3,
-            width: context.height * 0.3,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              // color: Colors.red,
+           verticalSpace(5),
+            editProfileColumn(
+              text: 'Deniz Can',
+              icon: Icons.perm_identity,
             ),
-            child: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              radius: context.height * 0.15,
-              backgroundImage: const AssetImage(AppAssetsImages.fallingImage),
+            verticalSpace(20),
+
+            editProfileColumn(
+              text: '01121010554',
+              icon: Icons.phone,
             ),
-          ),
+
+            verticalSpace(20),
+
+            editProfileColumn(
+              text: 'Femal',
+              icon: Icons.female_outlined,
+            ),
+
+            verticalSpace(70),
+
+            Center(
+              child: Container(
+                width: context.width*0.5,
+                height: context.height*0.07,
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color(0xff00A9FF) ,
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      color: Colors.black,
+                      blurStyle: BlurStyle.normal,
+                      offset: Offset.fromDirection(1)
+
+                    )
+                  ]
+                ),
+
+
+                child: Align(
+                  alignment: Alignment.center,
+
+                    child: Text('Edit',style: TextStyle(color: Colors.white,fontSize: 20.sp,fontWeight: FontWeight.w400),)),
+              ),
+            )
+
+
+
+          ],
         ),
-      ],
+      ),
     );
   }
 }
+
