@@ -10,4 +10,6 @@ class Routes {
   static const String mapScreen = '/mapScreen';
   static const String profileScreen = '/profileScreen';
   static const String splashScreen = '/SplashScreen';
+  static const String onBoardingScreen2= '/onBoardingScreen2';
+  static const String onBoardingScreen3= '/onBoardingScreen3';
 }

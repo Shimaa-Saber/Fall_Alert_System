@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, SignUpScreen.id);
+              Navigator.pushNamed(context, Routes.sighupScreen);
             },
             child: const Text(
               'Sign Up',

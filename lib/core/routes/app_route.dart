@@ -1,3 +1,4 @@
+import 'package:fall_detection/feature/auth/presentation/views/OnBoarding3_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/OnBoarding_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/login_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/signup_view.dart';
@@ -10,6 +11,7 @@ import 'package:fall_detection/feature/patient/presentation/views/patient_view.d
 import 'package:fall_detection/feature/profile/presenation/profile_screen.dart';
 import 'package:fall_detection/feature/splash/presentation/views/splashScreen.dart';
 
+import '../../feature/auth/presentation/views/onBoaring2_view.dart';
 import './routes.dart';
 
 import 'package:flutter/material.dart';
@@ -25,6 +27,15 @@ class AppRouter {
       case Routes.onBoardingScreen:
         return MaterialPageRoute(
           builder: (_) => const OnBoardingScreen(),
+        );
+
+      case Routes.onBoardingScreen2:
+        return MaterialPageRoute(
+          builder: (_) => const onBoaringScreen2(),
+        );
+      case Routes.onBoardingScreen3:
+        return MaterialPageRoute(
+          builder: (_) => const OnboardingView3(),
         );
       case Routes.sighupScreen:
         return MaterialPageRoute(

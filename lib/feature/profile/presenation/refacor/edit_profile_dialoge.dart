@@ -88,7 +88,7 @@ class EditProfileDialge extends StatelessWidget {
                         blurRadius: 5,
                         color: Colors.black,
                         blurStyle: BlurStyle.normal,
-                        offset: Offset(1, 1),
+                        offset: Offset(1, 4),
                       ),
                     ],
                   ),

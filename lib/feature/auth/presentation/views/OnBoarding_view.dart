@@ -17,12 +17,19 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 35.h),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, Routes.loginInScreen);
+                      },
+                      child: Text('Skip',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w400),))),
               verticalSpace(80),
               Align(
                 alignment: Alignment.center,
@@ -38,18 +45,18 @@ class OnBoardingScreen extends StatelessWidget {
               ElevatedButtonWidget(
                 tap: () {
                   // Navigator.pushNamed(context, SignUpScreen.id);
-                  context.pushName(Routes.sighupScreen);
+                  context.pushName(Routes.onBoardingScreen2);
                 },
-                title: 'Get Started',
+                title: 'Next',
               ),
               verticalSpace(8),
-              ButtonTextWidget(
-                title: 'Skip',
-                tap: () {
-                  // Navigator.pushNamed(context, LoginScreen.id);
-                  context.pushName(Routes.loginInScreen);
-                },
-              ),
+              // ButtonTextWidget(
+              //   title: 'Skip',
+              //   tap: () {
+              //     // Navigator.pushNamed(context, LoginScreen.id);
+              //     context.pushName(Routes.loginInScreen);
+              //   },
+              // ),
               verticalSpace(35),
               ButtonTextWidget(
                 title: 'Sign in now',
