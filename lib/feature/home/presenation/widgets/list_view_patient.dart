@@ -23,7 +23,11 @@ class ListViewPatient extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: 10,
             // ImageContainer(),
-            itemBuilder: (context, index) => const CircleAvaterImage(),
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, Routes.patientScreen);
+              },
+                child: const CircleAvaterImage()),
           ),
         ),
         horizontalSpace(25),
