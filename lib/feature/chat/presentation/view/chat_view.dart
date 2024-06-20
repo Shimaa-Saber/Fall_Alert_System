@@ -42,27 +42,29 @@ class ChatView extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            height: context.height * 0.76093,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40.r),
+          Expanded(
+            child: Container(
+              // height: context.height * 0.76093,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40.r),
+                ),
               ),
-            ),
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: MessageContainerInfo(
-                      image: AppAssetsImages.fallingImage,
-                      title: 'Nor',
-                      text: 'hello, please i need help for mother',
-                      min: '12:14',
-                    ));
-              },
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: MessageContainerInfo(
+                        image: AppAssetsImages.fallingImage,
+                        title: 'Nor',
+                        text: 'hello, please i need help for mother',
+                        min: '12:14',
+                      ));
+                },
+              ),
             ),
           )
         ],

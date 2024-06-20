@@ -131,20 +131,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: double.infinity,
                           child: ElevatedButtonWidget(
                             tap: () {
-                              if (_key.currentState!.validate()) {
-                                // Navigator.pushNamed(context, SignupScreen.id);
-                                // Navigator.pushNamedAndRemoveUntil(
-                                //     context,
-                                //     BottomNavBar.id,
-                                //     (Route<dynamic> route) => false);
-                                context.pushAndRemoveUntil(
-                                  Routes.bottomNavBarScreen,
-                                  // predicate: (_) => false,
-                                  // fullscreenDialog: true,
-                                );
-                                // ignore: avoid_print
-                                print('validate');
-                              }
+                              context.pushAndRemoveUntil(
+                                Routes.bottomNavBarScreen,
+                                // predicate: (_) => false,
+                                // fullscreenDialog: true,
+                              );
+                              // if (_key.currentState!.validate()) {
+                              //   // Navigator.pushNamed(context, SignupScreen.id);
+                              //   // Navigator.pushNamedAndRemoveUntil(
+                              //   //     context,
+                              //   //     BottomNavBar.id,
+                              //   //     (Route<dynamic> route) => false);
+
+                              //   // ignore: avoid_print
+                              //   print('validate');
+                              // }
                             },
                             title: 'Log In',
                           ),
