@@ -9,7 +9,11 @@ class ChatBuble extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        padding: EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 16), // Ensure all padding values are provided
+        padding: EdgeInsets.only(
+            left: 16,
+            top: 32,
+            bottom: 32,
+            right: 16), // Ensure all padding values are provided
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
