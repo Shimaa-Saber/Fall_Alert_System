@@ -3,40 +3,45 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 
+import '../widget/recevingchatbuble.dart';
+
 class ChatView extends StatelessWidget {
-  const ChatView({super.key});
+  const ChatView({Key? key}) : super(key: key);
+
   static String id = 'chat_view';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
         backgroundColor: AppColors.primaryColor,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Karine',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  Text(
+                    'Online',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: 8),
             Image.asset(
               'assets/images/patientfall.png',
               height: 50,
-            ),
-            SizedBox(width: 8), // Add spacing between image and text
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Karine',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                Text(
-                  'Online',
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-              ],
             ),
           ],
         ),
@@ -45,29 +50,60 @@ class ChatView extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 1,
+              itemCount: 2, // Adjust itemCount to include both chat bubbles
               itemBuilder: (context, index) {
-                return ChatBuble();
+                if (index == 0) {
+                  return ChatBuble(); // First chat bubble
+                } else {
+                  return RecevingChatBuble(); // Second chat bubble
+                }
               },
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: TextField(
-              decoration: InputDecoration(
-                suffixIcon: Icon(
-                  Icons.send,
-                  color: Colors.grey,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.primaryColor,
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: ' message...',
+                      prefixIcon: Icon(
+                        Icons.add,
+                        color: Colors.grey,
+                      ),
+                      suffixIcon: Icon(
+                        Icons.emoji_emotions,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                SizedBox(width: 8),
+                CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: IconButton(
+                    icon: Icon(Icons.mic),
+                    onPressed: () {
+                      // Handle record button press
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],
