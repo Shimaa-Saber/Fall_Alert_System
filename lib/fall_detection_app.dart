@@ -1,5 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:fall_detection/core/routes/app_route.dart';
 import 'package:fall_detection/core/routes/routes.dart';
+import 'package:fall_detection/core/services/network/api/dio_consumer.dart';
+import 'package:fall_detection/feature/home/data/logic/home_cubit/home_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,16 +14,23 @@ class FallDetectionApp extends StatelessWidget {
   final AppRouter appRouter;
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      // splitScreenMode: true,
-      child: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: Routes.onBoardingScreen,
-          onGenerateRoute: appRouter.generateRoute,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeCubit(DioConsumer(dio: Dio())),
+        ),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        // splitScreenMode: true,
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: Routes.onBoardingScreen,
+            onGenerateRoute: appRouter.generateRoute,
+          ),
         ),
       ),
     );
