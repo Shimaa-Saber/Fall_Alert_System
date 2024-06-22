@@ -8,7 +8,7 @@ class EndPoints {
   static String resendOtpForSignUp = 'user/resend-otp';
   static String activateUser = 'user/activate-user';
   static String resetForgetPAsswordForOtp = 'user/reset-forgot-password';
-  static String getUserProfile = 'user/profile';
+  static String getUserProfile = 'caregivers/me';
   static String getGender = 'gender';
   static String getCountry = 'location/countries';
   static String getStates = 'location/states';
@@ -20,6 +20,7 @@ class ApiKey {
   static String errorMessage = "ErrorMessage";
   static String email = "email";
   static String password = "password";
+  static String Authorization="Authorization";
   static String token = "token";
   static String message = "message";
   static String id = "id";

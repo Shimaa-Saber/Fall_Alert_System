@@ -12,6 +12,7 @@ import 'package:fall_detection/core/common/widgets/elevated_button_widget.dart';
 import 'package:fall_detection/core/common/widgets/text_form_feild_widget.dart';
 import 'package:fall_detection/feature/auth/presentation/views/signup_view.dart';
 import 'package:fall_detection/feature/auth/presentation/widgets/signin_container.dart';
+import 'package:fall_detection/core/styles/colors/colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -33,7 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is SignInSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("success"),
+              content: Text("success",style: TextStyle(color: Colors.white),),
+              backgroundColor: Colors.blue,
             ),
           );
 
@@ -43,7 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
         else if (state is SignInFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.errMessage),
+              content: Text(state.errMessage,style: TextStyle(color: Colors.white)),
+              backgroundColor: Colors.blue,
             ),
           );
         }

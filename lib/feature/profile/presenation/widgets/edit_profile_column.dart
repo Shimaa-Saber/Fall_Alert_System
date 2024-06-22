@@ -5,10 +5,10 @@ import '../../../../core/utils/spacing.dart';
 
 class editProfileColumn extends StatelessWidget {
   const editProfileColumn({
-    super.key, required this.text, required this.icon,
+    super.key, required this.text, this.icon,
   });
 final String text;
-final IconData icon;
+final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,8 @@ final IconData icon;
         prefixIcon: Icon(icon),
         hintText: text,
 
-    )
+    ),
+      
     );
   }
 }

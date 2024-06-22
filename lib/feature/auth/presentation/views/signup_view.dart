@@ -45,14 +45,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
         listener: (context, state) {
           if(state is SignUpSuccess){
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Success"),
+              content: Text("Success",style: TextStyle(color: Colors.white)),
+              backgroundColor: Colors.blue,
 
             ));
             Navigator.pushNamed(context, Routes.loginInScreen);
           }
           else if (state is SignUpFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.errMessage),
+              content: Text(state.errMessage,style: TextStyle(color: Colors.white)),
+              backgroundColor: Colors.blue,
             ));
           }
         },

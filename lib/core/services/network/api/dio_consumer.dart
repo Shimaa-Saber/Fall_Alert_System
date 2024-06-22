@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:fall_detection/core/services/network/api/api_consumer.dart';
+import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 
 import '../error/exceptions.dart';
 import 'api_endpoints.dart';
@@ -45,6 +46,9 @@ class DioConsumer extends ApiConsumer {
   Future get(String path,
       {Object? data, Map<String, dynamic>? queryParameters}) async {
     dio.options.headers['Accept']='application/json';
+    dio.options.headers[ApiKey.Authorization]=CacheHelper().getData(key: ApiKey.token) !=null?
+        'Bearer ${CacheHelper().getData(key: ApiKey.token)}':null;
+
     try {
       final response = await dio.get(
         path,
