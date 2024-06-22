@@ -1,3 +1,4 @@
+import 'package:fall_detection/feature/ChatScreen/presentation/view/chattingview.dart';
 import 'package:fall_detection/feature/auth/presentation/views/OnBoarding3_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/OnBoarding_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/login_view.dart';
@@ -61,13 +62,18 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const NotificationScreen(),
         );
-      case Routes.chatScareen:
+      case Routes.MessageScareen:
         return MaterialPageRoute(
-          builder: (_) => const ChatView(),
+          builder: (_) => const MessageView(),
         );
       case Routes.mapScreen:
         return MaterialPageRoute(
           builder: (_) => const MapPage(),
+        );
+
+      case Routes.ChatView:
+        return MaterialPageRoute(
+          builder: (_) => const ChatView(),
         );
       case Routes.mapScreen:
         return MaterialPageRoute(

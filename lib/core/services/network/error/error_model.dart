@@ -1,16 +1,14 @@
+import '../api/api_endpoints.dart';
+
 class ErrorModel {
-  final int status;
-  final String errorMessage;
+  // final int status;
+  final String message;
 
-  ErrorModel({
-    required this.status,
-    required this.errorMessage,
-  });
-
-  factory ErrorModel.fromJson(Map<String, dynamic> json) {
+  ErrorModel({ required this.message});
+  factory ErrorModel.fromJson(Map<String, dynamic> jsonData) {
     return ErrorModel(
-      status: json['status'] ?? 0,
-      errorMessage: json['ErrorMessage'] ?? '',
+
+      message: jsonData[ApiKey.message],
     );
   }
 }

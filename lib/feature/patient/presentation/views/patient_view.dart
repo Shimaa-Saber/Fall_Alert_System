@@ -3,6 +3,7 @@ import 'package:fall_detection/feature/patient/presentation/views/widgets/patian
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/routes/routes.dart';
 import '../../../../core/styles/colors/colors.dart';
 import '../../../../core/utils/spacing.dart';
 import '../../../profile/presenation/widgets/row_info_widget.dart';
@@ -135,7 +136,11 @@ class PatientScreen extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                   return Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 3.w),
-                                    child: patiant_list_item(),
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        Navigator.pushNamed(context, Routes.ChatView);
+                                      },
+                                        child: patiant_list_item()),
                                   );
                                 },),
                               ),

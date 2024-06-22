@@ -1,12 +1,18 @@
+
+
 import 'package:dio/dio.dart';
 import 'package:fall_detection/core/services/network/api/api_consumer.dart';
+
+import '../error/exceptions.dart';
+import 'api_endpoints.dart';
+import 'api_interceptors.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
-    // dio.options.baseUrl = EndPoints.baseUrl;
-    // dio.interceptors.add(ApiInterceptors());
+     dio.options.baseUrl = EndPoints.baseUrl;
+     dio.interceptors.add(ApiInterceptors());
     dio.interceptors.add(LogInterceptor(
       request: true,
       requestHeader: true,
@@ -30,14 +36,15 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
       );
       return response.data;
-    } on DioException {
-      // handleDioExceptions(e);
+    } on DioException  catch(e){
+       handleDioExceptions(e);
     }
   }
 
   @override
   Future get(String path,
       {Object? data, Map<String, dynamic>? queryParameters}) async {
+    dio.options.headers['Accept']='application/json';
     try {
       final response = await dio.get(
         path,
@@ -45,8 +52,8 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
       );
       return response.data;
-    } on DioException {
-      // handleDioExceptions(e);
+    } on DioException  catch(e){
+      handleDioExceptions(e);
     }
   }
 
@@ -64,8 +71,8 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
       );
       return response.data;
-    } on DioException {
-      // handleDioExceptions(e);
+    } on DioException  catch(e){
+      handleDioExceptions(e);
     }
   }
 
@@ -84,14 +91,15 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
         options: Options(
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           },
         ),
       );
       return response.data;
-    } on DioException {
-      // handleDioExceptions(e);
+    } on DioException  catch(e){
+      handleDioExceptions(e);
     }
   }
 
@@ -110,14 +118,15 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
         options: Options(
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           },
         ),
       );
       return response.data;
-    } on DioException {
-      // handleDioExceptions(e);
+    } on DioException  catch(e){
+      handleDioExceptions(e);
     }
     throw UnimplementedError();
   }

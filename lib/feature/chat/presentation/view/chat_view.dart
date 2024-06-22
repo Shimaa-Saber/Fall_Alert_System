@@ -10,8 +10,10 @@ import 'package:fall_detection/feature/notification/presentation/widget/all_noti
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ChatView extends StatelessWidget {
-  const ChatView({super.key});
+import '../../../../core/routes/routes.dart';
+
+class MessageView extends StatelessWidget {
+  const MessageView({super.key});
   // static String id = 'notification_view';
   @override
   Widget build(BuildContext context) {
@@ -54,14 +56,19 @@ class ChatView extends StatelessWidget {
             child: ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
-                return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: MessageContainerInfo(
-                      image: AppAssetsImages.fallingImage,
-                      title: 'Nor',
-                      text: 'hello, please i need help for mother',
-                      min: '12:14',
-                    ));
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, Routes.ChatView);
+                  },
+                  child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: MessageContainerInfo(
+                        image: AppAssetsImages.fallingImage,
+                        title: 'Nor',
+                        text: 'hello, please i need help for mother',
+                        min: '12:14',
+                      )),
+                );
               },
             ),
           )

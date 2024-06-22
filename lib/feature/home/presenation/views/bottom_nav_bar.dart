@@ -21,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const HomeScreen(),
     const NotificationScreen(),
     const ProfileScreen(),
-    const ChatView(),
+    const MessageView(),
   ];
 
   @override

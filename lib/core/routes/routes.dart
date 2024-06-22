@@ -6,10 +6,11 @@ class Routes {
   static const String homeScreen = '/homeScreen';
   static const String patientScreen = '/patientScreen';
   static const String notificationScreen = '/notificationScreen';
-  static const String chatScareen = '/chatScreen';
+  static const String MessageScareen = '/MessageScareen';
   static const String mapScreen = '/mapScreen';
   static const String profileScreen = '/profileScreen';
   static const String splashScreen = '/SplashScreen';
   static const String onBoardingScreen2= '/onBoardingScreen2';
   static const String onBoardingScreen3= '/onBoardingScreen3';
+  static const String ChatView= '/ChatView';
 }
