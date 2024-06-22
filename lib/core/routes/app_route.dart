@@ -1,4 +1,5 @@
 import 'package:fall_detection/feature/auth/presentation/views/OnBoarding_view.dart';
+import 'package:fall_detection/feature/auth/presentation/views/activate_user_screen.dart';
 import 'package:fall_detection/feature/auth/presentation/views/login_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/signup_view.dart';
 import 'package:fall_detection/feature/chat/presentation/view/chat_view.dart';
@@ -52,9 +53,13 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const MapPage(),
         );
-      case Routes.mapScreen:
+      case Routes.profileScreen:
         return MaterialPageRoute(
           builder: (_) => const ProfileScreen(),
+        );
+      case Routes.activateUsrAccount:
+        return MaterialPageRoute(
+          builder: (_) => const ActivateUserAccount(),
         );
       default:
         return MaterialPageRoute(

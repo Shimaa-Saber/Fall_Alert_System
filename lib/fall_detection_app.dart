@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fall_detection/core/routes/app_route.dart';
-import 'package:fall_detection/core/routes/routes.dart';
 import 'package:fall_detection/core/services/network/api/dio_consumer.dart';
+import 'package:fall_detection/feature/auth/data/logic/activate_cubit/activate_cubit.dart';
+import 'package:fall_detection/feature/auth/presentation/views/activate_user_screen.dart';
 import 'package:fall_detection/feature/home/data/logic/home_cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,6 +20,9 @@ class FallDetectionApp extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeCubit(DioConsumer(dio: Dio())),
         ),
+        BlocProvider(
+          create: (context) => ActivateUserCubit(DioConsumer(dio: Dio())),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
@@ -26,10 +30,11 @@ class FallDetectionApp extends StatelessWidget {
         // splitScreenMode: true,
         child: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: MaterialApp(
+          child: const MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: Routes.onBoardingScreen,
-            onGenerateRoute: appRouter.generateRoute,
+            // initialRoute: Routes.onBoardingScreen,
+            // onGenerateRoute: appRouter.generateRoute,
+            home: ActivateUserAccount(),
           ),
         ),
       ),
