@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fall_detection/core/styles/colors/colors.dart';
 
 class RecevingChatBuble extends StatelessWidget {
   const RecevingChatBuble({super.key});
@@ -9,7 +8,11 @@ class RecevingChatBuble extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 16), // Ensure all padding values are provided
+        padding: EdgeInsets.only(
+            left: 16,
+            top: 32,
+            bottom: 32,
+            right: 16), // Ensure all padding values are provided
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -17,10 +20,10 @@ class RecevingChatBuble extends StatelessWidget {
             topRight: Radius.circular(32),
             bottomRight: Radius.circular(32),
           ),
-          color: AppColors.primaryColor,
+          color: Colors.grey,
         ),
         child: Text(
-          "Please, I need help here",
+          "ok,i`ll do my best ",
           style: TextStyle(
             color: Colors.white,
           ),
