@@ -21,7 +21,6 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
     for (var controller in otpControllers) {
       controller.dispose();
     }
-    
   }
 
   void clearControllers() {
@@ -41,7 +40,7 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
         EndPoints.verifyUserAccount,
         data: {
           "email": email,
-          "otp": int.parse(otp),
+          "otp": otp,
         },
       );
       if (response != null) {

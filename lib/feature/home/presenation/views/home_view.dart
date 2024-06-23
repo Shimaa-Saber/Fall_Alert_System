@@ -1,3 +1,5 @@
+import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
+import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/core/styles/images/assets.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
@@ -24,7 +26,8 @@ class HomeScreen extends StatelessWidget {
 
     // Fetch data when the screen is built
     cubit.getHomeScreenData(
-        token: '13|02xnO8vAfLJNPfASbPvVAtP1737rTg19e3w7coLOc805c4c1');
+      token: CacheHelper.sharedPreferences.getString(ApiKey.token) ?? '',
+    );
 
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
@@ -83,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                             patientName: alert.user.name,
                             date: alert.createdAt,
                             patientLocationImage:
-                            AppAssetsImages.onboardingImage,
+                                AppAssetsImages.onboardingImage,
                           );
                         },
                       ),

@@ -3,11 +3,11 @@ import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
 import 'package:fall_detection/feature/auth/data/logic/activate_cubit/activate_cubit.dart';
 import 'package:fall_detection/feature/auth/data/logic/activate_cubit/activate_state.dart';
+import 'package:fall_detection/feature/auth/presentation/Manger/Cubits/AuthCubit/Auth_Cubit.dart';
 import 'package:fall_detection/feature/auth/presentation/widgets/otp_verification_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/routes/routes.dart';
 
 class ActivateUserAccount extends StatelessWidget {
@@ -15,7 +15,8 @@ class ActivateUserAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<ActivateUserCubit>(context);
+    final activateCubit = BlocProvider.of<ActivateUserCubit>(context);
+    final authCubit = BlocProvider.of<AuthCubit>(context);
     return BlocConsumer<ActivateUserCubit, ActivateUserState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -65,7 +66,7 @@ class ActivateUserAccount extends StatelessWidget {
                     ),
                     verticalSpace(100),
                     OTPVerificationWidget(
-                      controllers: cubit.otpControllers,
+                      controllers: activateCubit.otpControllers,
                       onChanged: (value) {},
                     ),
                     verticalSpace(20),
@@ -98,7 +99,9 @@ class ActivateUserAccount extends StatelessWidget {
                     ElevatedButtonWidget(
                       title: 'Contanue',
                       tap: () {
-                        cubit.activateUser('');
+                        activateCubit.activateUser(
+                          authCubit.signUpEmail.text,
+                        );
                         Navigator.pushNamed(context, Routes.loginInScreen);
                       },
                     ),

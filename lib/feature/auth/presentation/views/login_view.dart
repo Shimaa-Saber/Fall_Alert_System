@@ -29,29 +29,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit,AuthStates>(
+    return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is SignInSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("success",style: TextStyle(color: Colors.white),),
+              content: Text(
+                "success",
+                style: TextStyle(color: Colors.white),
+              ),
               backgroundColor: Colors.blue,
             ),
           );
 
           Navigator.pushNamed(context, Routes.homeScreen);
-        }
-
-        else if (state is SignInFailure) {
+        } else if (state is SignInFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.errMessage,style: TextStyle(color: Colors.white)),
+              content: Text(state.errMessage,
+                  style: const TextStyle(color: Colors.white)),
               backgroundColor: Colors.blue,
             ),
           );
         }
       },
-
       builder: (context, state) {
         return Scaffold(
           backgroundColor: AppColors.primaryColor,
@@ -97,7 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
                     child: Form(
                       key: _key,
                       child: SingleChildScrollView(
@@ -125,7 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             TextFormFieldWidget(
                               obscureText: true,
-                              controller:  context.read<AuthCubit>().signInPassword,
+                              controller:
+                                  context.read<AuthCubit>().signInPassword,
                               keyboardType: TextInputType.visiblePassword,
                               onChanged: (value) {},
                               hintText: 'Password',
@@ -154,32 +157,32 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             verticalSpace(20),
-                            state is SignInLoading?const CircularProgressIndicator():
-                            SizedBox(
-                              height: 55.h,
-                              width: double.infinity,
-
-                              child: ElevatedButtonWidget(
-                                tap: () {
-                                  if (_key.currentState!.validate()) {
-                                    context.read<AuthCubit>().signIn();
-                                    // Navigator.pushNamed(context, SignupScreen.id);
-                                    // Navigator.pushNamedAndRemoveUntil(
-                                    //     context,
-                                    //     BottomNavBar.id,
-                                    //     (Route<dynamic> route) => false);
-                                    context.pushAndRemoveUntil(
-                                      Routes.bottomNavBarScreen,
-                                      // predicate: (_) => false,
-                                    // fullscreenDialog: true,
-                                    );
-                                    // ignore: avoid_print
-                                    print('validate');
-                                  }
-                                },
-                                title: 'Log In',
-                              ),
-                            ),
+                            state is SignInLoading
+                                ? const CircularProgressIndicator()
+                                : SizedBox(
+                                    height: 55.h,
+                                    width: double.infinity,
+                                    child: ElevatedButtonWidget(
+                                      tap: () {
+                                        if (_key.currentState!.validate()) {
+                                          context.read<AuthCubit>().signIn();
+                                          // Navigator.pushNamed(context, SignupScreen.id);
+                                          // Navigator.pushNamedAndRemoveUntil(
+                                          //     context,
+                                          //     BottomNavBar.id,
+                                          //     (Route<dynamic> route) => false);
+                                          context.pushAndRemoveUntil(
+                                            Routes.bottomNavBarScreen,
+                                            // predicate: (_) => false,
+                                            // fullscreenDialog: true,
+                                          );
+                                          // ignore: avoid_print
+                                          print('validate');
+                                        }
+                                      },
+                                      title: 'Log In',
+                                    ),
+                                  ),
                             verticalSpace(8),
                             TextButton(
                               onPressed: () {
@@ -205,7 +208,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       },
-
     );
   }
 }
