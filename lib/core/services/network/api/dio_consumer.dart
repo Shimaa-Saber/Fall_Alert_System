@@ -44,7 +44,7 @@ class DioConsumer extends ApiConsumer {
 
   @override
   Future get(String path,
-      {Object? data, Map<String, dynamic>? queryParameters}) async {
+      {Object? data, Map<String, dynamic>? queryParameters, String? token,}) async {
     dio.options.headers['Accept']='application/json';
     dio.options.headers[ApiKey.Authorization]=CacheHelper().getData(key: ApiKey.token) !=null?
         'Bearer ${CacheHelper().getData(key: ApiKey.token)}':null;

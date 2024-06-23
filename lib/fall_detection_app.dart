@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import 'core/services/network/api/dio_consumer.dart';
+import 'feature/auth/data/logic/activate_cubit/activate_cubit.dart';
+import 'feature/home/data/logic/home_cubit/home_cubit.dart';
 
 class FallDetectionApp extends StatelessWidget {
   const FallDetectionApp({super.key, required this.appRouter});
@@ -19,6 +21,12 @@ class FallDetectionApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(DioConsumer(dio: Dio())),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(DioConsumer(dio: Dio())),
+        ),
+        BlocProvider(
+          create: (context) => ActivateUserCubit(DioConsumer(dio: Dio())),
         ),
       ],
       child: ScreenUtilInit(

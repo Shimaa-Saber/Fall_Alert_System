@@ -12,6 +12,7 @@ import 'package:fall_detection/feature/patient/presentation/views/patient_view.d
 import 'package:fall_detection/feature/profile/presenation/profile_screen.dart';
 import 'package:fall_detection/feature/splash/presentation/views/splashScreen.dart';
 
+import '../../feature/auth/presentation/views/activate_user_screen.dart';
 import '../../feature/auth/presentation/views/onBoaring2_view.dart';
 import './routes.dart';
 
@@ -74,6 +75,11 @@ class AppRouter {
       case Routes.ChatView:
         return MaterialPageRoute(
           builder: (_) => const ChatView(),
+        );
+
+      case Routes.activateUsrAccount:
+        return MaterialPageRoute(
+          builder: (_) => const ActivateUserAccount(),
         );
       case Routes.mapScreen:
         return MaterialPageRoute(

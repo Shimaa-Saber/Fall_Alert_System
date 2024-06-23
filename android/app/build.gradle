@@ -1,6 +1,4 @@
-
 plugins {
-
     id "com.android.application"
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -25,7 +23,7 @@ android {
         applicationId = "com.example.ooo"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode =flutter.versionCode
+        versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
@@ -44,4 +42,3 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.0"
     // Add other dependencies here
 }
-

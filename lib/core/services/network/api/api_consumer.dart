@@ -1,6 +1,7 @@
 abstract class ApiConsumer {
   Future<dynamic> get(
     String path, {
+    String token,
     Object? data,
     Map<String, dynamic>? queryParameters,
   });

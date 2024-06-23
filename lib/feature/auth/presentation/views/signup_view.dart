@@ -49,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               backgroundColor: Colors.blue,
 
             ));
-            Navigator.pushNamed(context, Routes.loginInScreen);
+            Navigator.pushNamed(context, Routes.activateUsrAccount);
           }
           else if (state is SignUpFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

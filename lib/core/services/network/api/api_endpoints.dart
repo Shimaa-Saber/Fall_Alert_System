@@ -12,6 +12,9 @@ class EndPoints {
   static String getGender = 'gender';
   static String getCountry = 'location/countries';
   static String getStates = 'location/states';
+
+  static String homeScreen = "falls?deep=true";
+  static String verifyUserAccount = 'caregivers/verify-email';
 }
 
 
