@@ -15,6 +15,9 @@ class EndPoints {
 
   static String homeScreen = "falls?deep=true";
   static String verifyUserAccount = 'caregivers/verify-email';
+  static String resendCode = "caregivers/resend-code";
+
+  //caregivers/resend-code
 }
 
 

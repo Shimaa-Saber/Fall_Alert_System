@@ -1,6 +1,7 @@
 import 'package:fall_detection/feature/ChatScreen/presentation/view/chattingview.dart';
 import 'package:fall_detection/feature/auth/presentation/views/OnBoarding3_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/OnBoarding_view.dart';
+import 'package:fall_detection/feature/auth/presentation/views/forgotPassword.dart';
 import 'package:fall_detection/feature/auth/presentation/views/login_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/signup_view.dart';
 import 'package:fall_detection/feature/chat/presentation/view/chat_view.dart';
@@ -14,6 +15,8 @@ import 'package:fall_detection/feature/splash/presentation/views/splashScreen.da
 
 import '../../feature/auth/presentation/views/activate_user_screen.dart';
 import '../../feature/auth/presentation/views/onBoaring2_view.dart';
+import '../../feature/auth/presentation/views/resetPassword.dart';
+import '../../feature/auth/presentation/views/resetPassword_code.dart';
 import './routes.dart';
 
 import 'package:flutter/material.dart';
@@ -84,6 +87,20 @@ class AppRouter {
       case Routes.mapScreen:
         return MaterialPageRoute(
           builder: (_) => const ProfileScreen(),
+        );
+
+      case Routes.forgotPassword:
+        return MaterialPageRoute(
+          builder: (_) =>  forgotPassword(),
+        );
+      case Routes.resetPasswordCode:
+        return MaterialPageRoute(
+          builder: (_) =>  ResetpasswordCode(),
+        );
+
+      case Routes.resetPassword:
+        return MaterialPageRoute(
+          builder: (_) =>  resetPassword(),
         );
       default:
         return MaterialPageRoute(

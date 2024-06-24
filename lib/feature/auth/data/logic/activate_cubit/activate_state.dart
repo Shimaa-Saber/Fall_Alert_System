@@ -18,3 +18,20 @@ class ActivateUserError extends ActivateUserState {
 
   ActivateUserError(this.error);
 }
+
+
+class OTPResendInitial extends ActivateUserState {}
+
+class OTPResendLoading extends ActivateUserState {}
+
+class OTPResendSuccess extends ActivateUserState {
+  final String message;
+
+  OTPResendSuccess(this.message);
+}
+
+class OTPResendFailure extends ActivateUserState {
+  final String error;
+
+  OTPResendFailure(this.error);
+}

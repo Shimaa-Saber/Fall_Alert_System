@@ -1,17 +1,19 @@
-import 'package:fall_detection/core/common/widgets/elevated_button_widget.dart';
-import 'package:fall_detection/core/styles/colors/colors.dart';
-import 'package:fall_detection/core/utils/spacing.dart';
-import 'package:fall_detection/feature/auth/data/logic/activate_cubit/activate_cubit.dart';
-import 'package:fall_detection/feature/auth/data/logic/activate_cubit/activate_state.dart';
-import 'package:fall_detection/feature/auth/presentation/Manger/Cubits/AuthCubit/Auth_Cubit.dart';
-import 'package:fall_detection/feature/auth/presentation/widgets/otp_verification_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/routes/routes.dart';
 
-class ActivateUserAccount extends StatelessWidget {
-  const ActivateUserAccount({super.key});
+import '../../../../core/common/widgets/elevated_button_widget.dart';
+import '../../../../core/routes/routes.dart';
+import '../../../../core/styles/colors/colors.dart';
+import '../../../../core/utils/spacing.dart';
+import '../../data/logic/activate_cubit/activate_cubit.dart';
+import '../../data/logic/activate_cubit/activate_state.dart';
+import '../Manger/Cubits/AuthCubit/Auth_Cubit.dart';
+import '../widgets/otp_verification_widget.dart';
+
+class ResetpasswordCode extends StatelessWidget {
+  const ResetpasswordCode({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +22,14 @@ class ActivateUserAccount extends StatelessWidget {
     return BlocConsumer<ActivateUserCubit, ActivateUserState>(
       listener: (context, state) {
         if (state is OTPResendSuccess) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(state.message)),
-        );
-      } else if (state is OTPResendFailure) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${state.error}')),
-        );
-      }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        } else if (state is OTPResendFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: ${state.error}')),
+          );
+        }
 
       },
       builder: (context, state) {
@@ -97,7 +99,7 @@ class ActivateUserAccount extends StatelessWidget {
                           // verticalSpace(10),
                           InkWell(
                             onTap: (){
-                              context.read<ActivateUserCubit>().resendOTP(authCubit.signUpEmail.text,'verify-email');
+                              context.read<ActivateUserCubit>().resendOTP(authCubit.signUpEmail.text,'reset-password');
                             },
                             child: Text(
                               '  Resend Code',
@@ -118,7 +120,7 @@ class ActivateUserAccount extends StatelessWidget {
                         activateCubit.activateUser(
                           authCubit.signUpEmail.text,
                         );
-                        Navigator.pushNamed(context, Routes.loginInScreen);
+                        Navigator.pushNamed(context, Routes.resetPassword);
                       },
                     ),
                   ],
@@ -130,4 +132,6 @@ class ActivateUserAccount extends StatelessWidget {
       },
     );
   }
-}
+  }
+
+

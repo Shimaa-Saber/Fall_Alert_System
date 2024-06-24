@@ -70,6 +70,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: 'Notification',
             ),
             BottomNavigationBarItem(
+
               icon: Icon(
                 Icons.person,
                 size: 23,

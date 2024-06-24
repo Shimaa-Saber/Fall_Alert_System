@@ -1,5 +1,6 @@
 import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
 import 'package:fall_detection/core/services/network/api/dio_consumer.dart';
+import 'package:fall_detection/core/services/network/error/exceptions.dart';
 import 'package:fall_detection/feature/auth/data/logic/activate_cubit/activate_state.dart';
 import 'package:fall_detection/feature/auth/data/model/activate_user_model.dart';
 import 'package:flutter/material.dart';
@@ -54,4 +55,41 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
       // print(e);
     }
   }
+
+
+  Future<void> resendOTP(String email, String type) async {
+    emit(OTPResendLoading());
+
+    try {
+      final response = await dio.post(
+        EndPoints.resendCode,
+        data: {
+          'email': email,
+          'type': type,
+        },
+      );
+      emit(OTPResendSuccess(response['message']));
+    } on ServerException catch (e) {
+      emit(OTPResendFailure(e.errModel.message));
+    } catch (e) {
+      emit(OTPResendFailure(e.toString()));
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

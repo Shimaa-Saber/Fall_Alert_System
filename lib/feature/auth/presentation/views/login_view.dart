@@ -147,11 +147,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               alignment: Alignment.centerRight,
                               child: TextButton(
                                 onPressed: () {},
-                                child: const Text(
-                                  'Forget Password?',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 20,
+                                child: GestureDetector(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, Routes.forgotPassword);
+                                  },
+                                  child: const Text(
+                                    'Forget Password?',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -171,11 +176,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                           //     context,
                                           //     BottomNavBar.id,
                                           //     (Route<dynamic> route) => false);
-                                          context.pushAndRemoveUntil(
-                                            Routes.bottomNavBarScreen,
+                                         // context.pushAndRemoveUntil(
+                                           // Routes.bottomNavBarScreen,
                                             // predicate: (_) => false,
                                             // fullscreenDialog: true,
-                                          );
+                                        //  );
                                           // ignore: avoid_print
                                           print('validate');
                                         }
