@@ -23,11 +23,15 @@ class ResetpasswordCode extends StatelessWidget {
       listener: (context, state) {
         if (state is OTPResendSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+            SnackBar(
+              backgroundColor: Colors.blue,
+                content: Text(state.message,style: TextStyle(color: Colors.white))),
           );
         } else if (state is OTPResendFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error: ${state.error}')),
+            SnackBar(
+              backgroundColor: Colors.blue,
+                content: Text('Error: ${state.error}',style: TextStyle(color: Colors.white))),
           );
         }
 
@@ -99,7 +103,7 @@ class ResetpasswordCode extends StatelessWidget {
                           // verticalSpace(10),
                           InkWell(
                             onTap: (){
-                              context.read<ActivateUserCubit>().resendOTP(authCubit.signUpEmail.text,'reset-password');
+                              context.read<ActivateUserCubit>().resendOTP(context.read<ActivateUserCubit>().resetPasswordemail.text,'reset-password');
                             },
                             child: Text(
                               '  Resend Code',
@@ -118,7 +122,7 @@ class ResetpasswordCode extends StatelessWidget {
                       title: 'Contanue',
                       tap: () {
                         activateCubit.activateUser(
-                          authCubit.signUpEmail.text,
+                          context.read<ActivateUserCubit>().resetPasswordemail.text,
                         );
                         Navigator.pushNamed(context, Routes.resetPassword);
                       },

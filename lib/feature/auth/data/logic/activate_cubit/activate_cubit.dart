@@ -13,6 +13,8 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
   final List<TextEditingController> otpControllers =
       List.generate(4, (_) => TextEditingController());
 
+
+
   void onOTPChanged(String value) {
     // Handle OTP change
     print('OTP changed: $value');
@@ -30,6 +32,9 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
       controller.clear();
     }
   }
+  TextEditingController resetPasswordemail =TextEditingController();
+  TextEditingController resetPassword= TextEditingController();
+  TextEditingController confirmPassword=TextEditingController();
 
   ActivateUserModel? user;
 
@@ -64,32 +69,83 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
       final response = await dio.post(
         EndPoints.resendCode,
         data: {
-          'email': email,
-          'type': type,
+          ApiKey.email: email,
+          ApiKey.type: type,
         },
       );
+      user=ActivateUserModel.fromJson(response);
       emit(OTPResendSuccess(response['message']));
     } on ServerException catch (e) {
-      emit(OTPResendFailure(e.errModel.message));
-    } catch (e) {
-      emit(OTPResendFailure(e.toString()));
+      emit(OTPResendFailure(error: e.errModel.message! ));
     }
   }
 
 
 
 
+  Future<void> sendResetPasswordEmail() async {
+    emit(ForgotPasswordLoading());
+
+    try {
+      final response = await dio.post(
+        EndPoints.forgetPassword,
+        data: {
+          ApiKey.email: resetPasswordemail.text,
+        },
+      );
+      user=ActivateUserModel.fromJson(response);
+      emit(ForgotPasswordSuccess(response['message']));
+    }on ServerException catch (e) {
+      emit(ForgotPasswordError(error:e.errModel.message!));
+    }
+  }
+
+  Future<void> resetPasswordFun() async {
 
 
-
-
-
-
-
-
-
-
-
-
-
+    try {
+      emit(ResetPasswordLoading());
+      final otp = otpControllers.map((controller) => controller.text).join();
+      final response = await dio.post(
+        EndPoints.resetPassword,
+        data: {
+          ApiKey.email: resetPasswordemail.text,
+          ApiKey.otp: otp,
+          ApiKey.password: resetPassword.text,
+          ApiKey.password_confirmation: confirmPassword.text,
+        },
+      );
+      user=ActivateUserModel.fromJson(response);
+      emit(ResetPasswordSuccess(response['message']));
+    } on ServerException catch (e) {
+      emit(ResetPasswordError(error:e.errModel.message?? "uknown error occurred"));
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

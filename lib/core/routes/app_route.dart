@@ -16,6 +16,7 @@ import 'package:fall_detection/feature/splash/presentation/views/splashScreen.da
 import '../../feature/auth/presentation/views/activate_user_screen.dart';
 import '../../feature/auth/presentation/views/onBoaring2_view.dart';
 import '../../feature/auth/presentation/views/resetPassword.dart';
+import '../../feature/auth/presentation/views/resetPasswordDone.dart';
 import '../../feature/auth/presentation/views/resetPassword_code.dart';
 import './routes.dart';
 
@@ -101,6 +102,10 @@ class AppRouter {
       case Routes.resetPassword:
         return MaterialPageRoute(
           builder: (_) =>  resetPassword(),
+        );
+      case Routes.resetPasswordDone:
+        return MaterialPageRoute(
+          builder: (_) =>  Resetpassworddone(),
         );
       default:
         return MaterialPageRoute(

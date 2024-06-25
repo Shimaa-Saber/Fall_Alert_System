@@ -1,8 +1,8 @@
 import '../../../../data/Models/UserModel.dart';
 
 abstract class UserState{}
-
 class UserLoading extends UserState{}
+class UserInitialstate extends UserState{}
 class UserSuccess extends UserState{
   final  UserModel user;
 

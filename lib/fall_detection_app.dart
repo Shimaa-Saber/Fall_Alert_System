@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'core/services/network/api/dio_consumer.dart';
 import 'feature/auth/data/logic/activate_cubit/activate_cubit.dart';
 import 'feature/home/data/logic/home_cubit/home_cubit.dart';
+import 'feature/profile/presenation/Manger/Cubits/UserCubit/UserCupit.dart';
 
 class FallDetectionApp extends StatelessWidget {
   const FallDetectionApp({super.key, required this.appRouter});
@@ -21,6 +22,9 @@ class FallDetectionApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(DioConsumer(dio: Dio())),
+        ),
+        BlocProvider<UserCubit>(
+          create: (context) => UserCubit(DioConsumer( dio: Dio())),
         ),
         BlocProvider(
           create: (context) => HomeCubit(DioConsumer(dio: Dio())),
