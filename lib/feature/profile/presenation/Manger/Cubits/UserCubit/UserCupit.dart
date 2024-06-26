@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/services/network/api/api_consumer.dart';
 import '../../../../../../core/services/network/api/api_endpoints.dart';
 import '../../../../../../core/services/network/error/exceptions.dart';
-import '../../../../../auth/presentation/Manger/Cubits/AuthCubit/Auth_States.dart';
 import '../../../../data/Models/UserModel.dart';
 
 class UserCubit extends Cubit<UserState>{

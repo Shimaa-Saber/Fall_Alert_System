@@ -1,12 +1,10 @@
 import 'package:fall_detection/core/styles/images/assets.dart';
-import 'package:fall_detection/feature/chat/presentation/widget/message_container_info.dart';
-import 'package:fall_detection/feature/chat/presentation/widget/message_text_widget.dart';
-import 'package:fall_detection/feature/notification/presentation/widget/notification_card_info.dart';
+import 'package:fall_detection/feature/messages/presentation/widget/message_container_info.dart';
+import 'package:fall_detection/feature/messages/presentation/widget/message_text_widget.dart';
 
 import 'package:fall_detection/core/extensions/context_extension.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
-import 'package:fall_detection/feature/notification/presentation/widget/all_notification_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

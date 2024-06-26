@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
-import 'package:fall_detection/feature/chat/presentation/view/chat_view.dart';
+import 'package:fall_detection/feature/messages/presentation/view/chat_view.dart';
 import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCubit/UserCupit.dart';
 import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCubit/UserStates.dart';
 import 'package:fall_detection/feature/profile/presenation/profile_screen.dart';

@@ -4,7 +4,7 @@ import 'package:fall_detection/feature/auth/presentation/views/OnBoarding_view.d
 import 'package:fall_detection/feature/auth/presentation/views/forgotPassword.dart';
 import 'package:fall_detection/feature/auth/presentation/views/login_view.dart';
 import 'package:fall_detection/feature/auth/presentation/views/signup_view.dart';
-import 'package:fall_detection/feature/chat/presentation/view/chat_view.dart';
+import 'package:fall_detection/feature/messages/presentation/view/chat_view.dart';
 import 'package:fall_detection/feature/home/presenation/views/bottom_nav_bar.dart';
 import 'package:fall_detection/feature/home/presenation/views/home_view.dart';
 import 'package:fall_detection/feature/map/presentation/views/map_screen.dart';
