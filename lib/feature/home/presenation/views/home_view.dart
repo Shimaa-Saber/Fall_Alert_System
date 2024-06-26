@@ -10,15 +10,13 @@ import 'package:fall_detection/feature/home/presenation/widgets/list_view_patien
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../widgets/patient_card.dart';
 import '../widgets/search_widget.dart';
-// import '..\..\..\..\core\styles\images\assets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  // static String id = 'home';
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +36,11 @@ class HomeScreen extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is HomeLoadingState) {
-          return const Center(child: CircularProgressIndicator());
+          return _buildLoadingShimmer();
         } else if (state is HomeLoaded) {
           return Scaffold(
             drawer: const DrawerWidget(),
             body: Padding(
-              //horizontal: 16, vertical: 45
               padding: EdgeInsets.only(
                 left: 16.w,
                 right: 16.w,
@@ -102,6 +99,65 @@ class HomeScreen extends StatelessWidget {
           return const Center(child: Text('Unexpected state'));
         }
       },
+    );
+  }
+
+  Widget _buildLoadingShimmer() {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: 16.w,
+          right: 16.w,
+          top: 45.h,
+        ),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      color: Colors.white,
+                    ),
+                    horizontalSpace(20),
+                    Expanded(
+                      child: Container(
+                        height: 32,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                verticalSpace(20),
+                Container(
+                  height: 50,
+                  color: Colors.white,
+                ),
+                verticalSpace(20),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                        height: 340.h,
+                        width: double.infinity,
+                        color: Colors.white,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

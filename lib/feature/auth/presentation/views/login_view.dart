@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
 
-          Navigator.pushNamed(context, Routes.homeScreen);
+          Navigator.pushNamed(context, Routes.bottomNavBarScreen);
         } else if (state is SignInFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -148,8 +148,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextButton(
                                 onPressed: () {},
                                 child: GestureDetector(
-                                  onTap: (){
-                                    Navigator.pushNamed(context, Routes.forgotPassword);
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, Routes.forgotPassword);
                                   },
                                   child: const Text(
                                     'Forget Password?',
@@ -176,11 +177,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                           //     context,
                                           //     BottomNavBar.id,
                                           //     (Route<dynamic> route) => false);
-                                         // context.pushAndRemoveUntil(
-                                           // Routes.bottomNavBarScreen,
-                                            // predicate: (_) => false,
-                                            // fullscreenDialog: true,
-                                        //  );
+                                          // context.pushAndRemoveUntil(
+                                          // Routes.bottomNavBarScreen,
+                                          // predicate: (_) => false,
+                                          // fullscreenDialog: true,
+                                          //  );
                                           // ignore: avoid_print
                                           print('validate');
                                         }

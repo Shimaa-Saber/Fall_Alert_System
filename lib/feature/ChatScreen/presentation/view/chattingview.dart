@@ -1,24 +1,89 @@
 import 'package:fall_detection/feature/ChatScreen/presentation/widget/chattingbuble.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fall_detection/feature/ChatScreen/presentation/widget/recevingchatbuble.dart';
+
+import './pusher_services.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fall_detection/core/styles/colors/colors.dart';
+import 'package:dio/dio.dart';
 
-import '../widget/recevingchatbuble.dart';
+// import 'pusher_service.dart';
 
-class ChatView extends StatelessWidget {
-  const ChatView({Key? key}) : super(key: key);
+class ChatView extends StatefulWidget {
+  const ChatView({super.key});
 
   static String id = 'chat_view';
+
+  @override
+  _ChatViewState createState() => _ChatViewState();
+}
+
+class _ChatViewState extends State<ChatView> {
+  final TextEditingController _controller = TextEditingController();
+  final List<Map<String, String>> _messages = [];
+  final PusherService _pusherService = PusherService();
+  final Dio _dio = Dio();
+
+  @override
+  void initState() {
+    super.initState();
+    //private-chat.$_controller.$receiverID
+    _pusherService.subscribeToChannel('chat', (dynamic data) {
+      final message = json.decode(data);
+      setState(() {
+        _messages.add({
+          'message': message['message'],
+          // 'sender': message['sender'],
+        });
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pusherService.disconnect();
+    super.dispose();
+  }
+
+  Future<void> _sendMessage(String message) async {
+    try {
+      final response = await _dio.post(
+        "https://fallyguardapi.me/api/v1/chat/31",
+        data: {
+          'message': message,
+          // 'sender': _controller.text,
+        },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer 20|jjFlJn2EIq3Ah6CLcpydb9mVNstWGJUrkOPJDsSoa57a0f8a',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          _messages.add({
+            'message': message,
+            // 'sender': _controller.text,
+          });
+        });
+      }
+    } catch (e) {
+      print('Error sending message: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: Colors.lightBlue,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
+            const Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +103,7 @@ class ChatView extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Image.asset(
               'assets/images/patientfall.png',
               height: 50,
@@ -50,12 +115,13 @@ class ChatView extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 2, // Adjust itemCount to include both chat bubbles
+              itemCount: _messages.length,
               itemBuilder: (context, index) {
-                if (index == 0) {
-                  return ChatBuble(); // First chat bubble
+                final message = _messages[index];
+                if (message['sender'] == 'you') {
+                  return ChatBuble(message: message['message']!);
                 } else {
-                  return RecevingChatBuble(); // Second chat bubble
+                  return RecevingChatBuble(message: message['message']!);
                 }
               },
             ),
@@ -66,13 +132,14 @@ class ChatView extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: _controller,
                     decoration: InputDecoration(
                       hintText: ' message...',
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.add,
                         color: Colors.grey,
                       ),
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.emoji_emotions,
                       ),
                       border: OutlineInputBorder(
@@ -80,26 +147,30 @@ class ChatView extends StatelessWidget {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.blue,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(
-                          color: AppColors.primaryColor,
+                        borderSide: const BorderSide(
+                          color: Colors.lightBlue,
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 CircleAvatar(
                   backgroundColor: Colors.grey,
                   child: IconButton(
-                    icon: Icon(Icons.mic),
+                    icon: const Icon(Icons.send),
                     onPressed: () {
-                      // Handle record button press
+                      final message = _controller.text;
+                      if (message.isNotEmpty) {
+                        _sendMessage(message);
+                        _controller.clear();
+                      }
                     },
                   ),
                 ),
