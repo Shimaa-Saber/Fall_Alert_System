@@ -14,4 +14,8 @@ class Routes {
   static const String onBoardingScreen3= '/onBoardingScreen3';
   static const String ChatView= '/ChatView';
   static const String activateUsrAccount = '/ActivateUsrAccount';
+  static const String forgotPassword = '/forgotPassword';
+  static const String resetPasswordCode = '/resetPasswordCode';
+  static const String resetPassword = '/resetPassword';
+  static const String resetPasswordDone = '/resetPasswordDone';
 }

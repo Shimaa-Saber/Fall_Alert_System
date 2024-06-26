@@ -66,7 +66,7 @@ class AuthCubit extends Cubit<AuthStates>{
       final signUPModel = SignUp_Model.fromJson(response);
       emit(SignUpSuccess(id: signUPModel.id));
     } on ServerException catch (e) {
-      emit(SignUpFailure(errMessage: e.errModel.message));
+      emit(SignUpFailure(errMessage: e.errModel.message!));
     }
   }
 
@@ -88,7 +88,7 @@ class AuthCubit extends Cubit<AuthStates>{
 
       emit(SignInSuccess());
     } on ServerException catch (e) {
-      emit(SignInFailure(errMessage: e.errModel.message));
+      emit(SignInFailure(errMessage: e.errModel.message!));
     }
   }
 

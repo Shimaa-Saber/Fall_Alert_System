@@ -2,9 +2,9 @@ class EndPoints {
   static String baseUrl = "https://fallyguardapi.me/api/v1/";
   static String login = "caregivers/login";
   static String signUp = "caregivers/register";
-  static String forgetPassword = "user/forgot-password";
+  static String forgetPassword = "caregivers/forgot-password";
   static String resetFrogetPassword = "user/reset-forgot-password";
-  static String resetPassword = "user/reset-password";
+
   static String resendOtpForSignUp = 'user/resend-otp';
   static String activateUser = 'user/activate-user';
   static String resetForgetPAsswordForOtp = 'user/reset-forgot-password';
@@ -15,6 +15,11 @@ class EndPoints {
 
   static String homeScreen = "falls?deep=true";
   static String verifyUserAccount = 'caregivers/verify-email';
+  static String resendCode = "caregivers/resend-code";
+  static String resetPassword = "caregivers/reset-password";
+  //static String forgetPassword="caregivers/forgot-password";
+
+  //caregivers/resend-code
 }
 
 
@@ -36,6 +41,8 @@ class ApiKey {
   static String country = "country";
   static String date_of_birth = "date_of_birth";
   static String rating = "rating";
+  static String otp = "otp";
+  static String type = "type";
 
   static String device_name = "device_name";
 }

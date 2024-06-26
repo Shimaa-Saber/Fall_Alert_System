@@ -30,7 +30,7 @@ void handleDioExceptions(DioException e) {
       throw ServerException(errModel: ErrorModel.fromJson(e.response!.data));
 
     case DioExceptionType.badResponse:
-      switch (e.response?.statusCode) {
+      switch (e.response!.statusCode) {
         case 400: // Bad request
           throw ServerException(
               errModel: ErrorModel.fromJson(e.response!.data));

@@ -4,15 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/services/network/api/api_consumer.dart';
 import '../../../../../../core/services/network/api/api_endpoints.dart';
 import '../../../../../../core/services/network/error/exceptions.dart';
+import '../../../../../auth/presentation/Manger/Cubits/AuthCubit/Auth_States.dart';
 import '../../../../data/Models/UserModel.dart';
 
 class UserCubit extends Cubit<UserState>{
 
+  UserCubit( this.api) : super(UserInitialstate());
+
+
   final ApiConsumer api;
 
-  UserCubit(super.initialState, this.api);
-
 UserModel? user;
+
+
   getUserProfile( ) async {
     try {
       emit(UserLoading());
@@ -26,7 +30,7 @@ UserModel? user;
 
       emit(UserSuccess(user: UserModel.fromJson(response)));
     } on ServerException catch (e) {
-      emit(Userfailer(errorMessage: e.errModel.message));
+      emit(Userfailer(errorMessage: e.errModel.message!));
     }
   }
 
