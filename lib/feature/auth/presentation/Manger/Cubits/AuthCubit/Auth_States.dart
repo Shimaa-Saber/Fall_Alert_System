@@ -24,3 +24,16 @@ class SignUpFailure extends AuthStates {
 
   SignUpFailure({required this.errMessage});
 }
+
+
+class LogoutLoading extends AuthStates {}
+
+class AuthLoggedOut extends AuthStates {}
+
+class LogoutError extends AuthStates {
+  final String message;
+
+   LogoutError({required this.message});
+
+
+}

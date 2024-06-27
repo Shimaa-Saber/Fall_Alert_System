@@ -17,6 +17,7 @@ class EndPoints {
   static String verifyUserAccount = 'caregivers/verify-email';
   static String resendCode = "caregivers/resend-code";
   static String resetPassword = "caregivers/reset-password";
+  static String logout='auth/logout';
   //static String forgetPassword="caregivers/forgot-password";
 
   //caregivers/resend-code

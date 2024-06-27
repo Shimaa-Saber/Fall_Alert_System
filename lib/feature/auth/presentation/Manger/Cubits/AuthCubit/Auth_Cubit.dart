@@ -93,6 +93,46 @@ class AuthCubit extends Cubit<AuthStates>{
   }
 
 
+  Future<void> logout() async {
+    emit(LogoutLoading());
+    try {
+      final token = CacheHelper().getData(key: ApiKey.token);
+      if (token != null) {
+        await api.post(
+          EndPoints.logout
+        );
+
+        // Clear the token from cache
+        await CacheHelper().removeData(key: ApiKey.token);
+        //user = SignInModel.fromJson(response);
+        emit(AuthLoggedOut());
+      } else {
+        emit(LogoutError(message: 'No token found'));
+      }
+    }on ServerException catch (e) {
+      emit(LogoutError(message: 'Logout failed: ${e.errModel.message}'));
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Future<String> getDeviceName()async{
   //   Map deviceInfo = (await DeviceInfoPlugin().deviceInfo).data;
   //
@@ -107,4 +147,3 @@ class AuthCubit extends Cubit<AuthStates>{
 
 
 
-}
