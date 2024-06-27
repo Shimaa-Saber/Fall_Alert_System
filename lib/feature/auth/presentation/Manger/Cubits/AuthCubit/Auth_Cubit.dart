@@ -98,7 +98,7 @@ class AuthCubit extends Cubit<AuthStates>{
     try {
       final token = CacheHelper().getData(key: ApiKey.token);
       if (token != null) {
-        await api.post(
+        await api.Logout(
           EndPoints.logout
         );
 

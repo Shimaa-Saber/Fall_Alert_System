@@ -12,6 +12,14 @@ abstract class ApiConsumer {
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   });
+
+  Future<dynamic> Logout(
+      String path, {
+        String token,
+        Object? data,
+        Map<String, dynamic>? queryParameters,
+        bool isFormData = false,
+      });
   Future<dynamic> patch(
     String path, {
     Object? data,
