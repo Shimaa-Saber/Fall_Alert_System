@@ -25,8 +25,6 @@ UserModel? user;
           queryParameters: {
             'deep': deep
           });
-
-          user= UserModel.fromJson(response);
       emit(UserSuccess(user: UserModel.fromJson(response)));
     } on ServerException catch (e) {
       emit(Userfailer(errorMessage: e.errModel.message!));
