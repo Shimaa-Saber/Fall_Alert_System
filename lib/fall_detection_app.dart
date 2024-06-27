@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:fall_detection/core/routes/app_route.dart';
 import 'package:fall_detection/core/routes/routes.dart';
 import 'package:fall_detection/feature/auth/presentation/Manger/Cubits/AuthCubit/Auth_Cubit.dart';
+import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesCubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,6 +26,10 @@ class FallDetectionApp extends StatelessWidget {
         ),
         BlocProvider<UserCubit>(
           create: (context) => UserCubit(DioConsumer( dio: Dio())),
+        ),
+
+        BlocProvider<ChatCubit>(
+          create: (context) => ChatCubit(DioConsumer( dio: Dio())),
         ),
         BlocProvider(
           create: (context) => HomeCubit(DioConsumer(dio: Dio())),
