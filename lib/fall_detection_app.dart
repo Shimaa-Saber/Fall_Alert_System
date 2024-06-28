@@ -3,10 +3,7 @@ import 'package:fall_detection/core/routes/app_route.dart';
 import 'package:fall_detection/core/routes/routes.dart';
 import 'package:fall_detection/feature/auth/presentation/Manger/Cubits/AuthCubit/Auth_Cubit.dart';
 import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesCubit.dart';
-<<<<<<< HEAD
 import 'package:fall_detection/pusher_notiifcation_services.dart';
-=======
->>>>>>> 8ccabb90406c8dc60c298a6e2177b2a212c3b6ed
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +24,7 @@ class FallDetectionApp extends StatefulWidget {
 }
 
 class _FallDetectionAppState extends State<FallDetectionApp> {
-  final PusherService _pusherService = PusherService();
+    final PusherService _pusherService = PusherService();
 
   @override
   void initState() {
@@ -40,7 +37,6 @@ class _FallDetectionAppState extends State<FallDetectionApp> {
     _pusherService.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -50,9 +46,6 @@ class _FallDetectionAppState extends State<FallDetectionApp> {
         ),
         BlocProvider<UserCubit>(
           create: (context) => UserCubit(DioConsumer(dio: Dio())),
-        ),
-        BlocProvider<ChatCubit>(
-          create: (context) => ChatCubit(DioConsumer(dio: Dio())),
         ),
 
         BlocProvider<ChatCubit>(
