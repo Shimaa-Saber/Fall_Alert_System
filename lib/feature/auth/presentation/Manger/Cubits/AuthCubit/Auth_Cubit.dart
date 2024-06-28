@@ -15,7 +15,7 @@ import '../../../../../../core/services/shared_prefrences/shared_pref.dart';
 import '../../../../data/models/signUp_model.dart';
 import '../../../../data/models/signin_model.dart';
 
-class AuthCubit extends Cubit<AuthStates>{
+class AuthCubit extends Cubit<AuthStates> {
   AuthCubit(this.api) : super(UserInitial());
 
   final ApiConsumer api;
@@ -29,7 +29,6 @@ class AuthCubit extends Cubit<AuthStates>{
   //Sign Up Form key
   GlobalKey<FormState> signUpFormKey = GlobalKey();
 
-
   TextEditingController signUpName = TextEditingController();
   //Sign up phone number
   TextEditingController signUpPhoneNumber = TextEditingController();
@@ -39,8 +38,6 @@ class AuthCubit extends Cubit<AuthStates>{
   TextEditingController signUpPassword = TextEditingController();
 
   TextEditingController signUpGender = TextEditingController();
-
-
 
   signUp() async {
     try {
@@ -54,13 +51,12 @@ class AuthCubit extends Cubit<AuthStates>{
           ApiKey.email: signUpEmail.text,
           ApiKey.password: signUpPassword.text,
           ApiKey.gender: signUpGender.text,
-          ApiKey.date_of_birth:"2024-03-07 18:36:20",
-          ApiKey.country:"Egypt",
-          ApiKey.rating:0,
-         // ApiKey.confirmPassword:"Shimaa@@1234",
-         // ApiKey.photo:"https://th.bing.com/th/id/OIP.qjJymN6ir_3Kyq9UIJZXOAHaKC?rs=1&pid=ImgDetMain",
-          ApiKey.address:"Egypt Assuit",
-
+          ApiKey.date_of_birth: "2024-03-07 18:36:20",
+          ApiKey.country: "Egypt",
+          ApiKey.rating: 0,
+          // ApiKey.confirmPassword:"Shimaa@@1234",
+          // ApiKey.photo:"https://th.bing.com/th/id/OIP.qjJymN6ir_3Kyq9UIJZXOAHaKC?rs=1&pid=ImgDetMain",
+          ApiKey.address: "Egypt Assuit",
         },
       );
       final signUPModel = SignUp_Model.fromJson(response);
@@ -79,12 +75,12 @@ class AuthCubit extends Cubit<AuthStates>{
         data: {
           ApiKey.email: signInEmail.text,
           ApiKey.password: signInPassword.text,
-          ApiKey.device_name:"Nokia 5.1"
+          ApiKey.device_name: "Nokia 5.1"
         },
       );
       user = SignInModel.fromJson(response);
 
-       CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+      CacheHelper().saveData(key: ApiKey.token, value: user!.token);
 
       emit(SignInSuccess());
     } on ServerException catch (e) {
@@ -92,15 +88,12 @@ class AuthCubit extends Cubit<AuthStates>{
     }
   }
 
-
   Future<void> logout() async {
     emit(LogoutLoading());
     try {
       final token = CacheHelper().getData(key: ApiKey.token);
       if (token != null) {
-        await api.Logout(
-          EndPoints.logout
-        );
+        await api.logout(EndPoints.logout);
 
         // Clear the token from cache
         await CacheHelper().removeData(key: ApiKey.token);
@@ -109,7 +102,7 @@ class AuthCubit extends Cubit<AuthStates>{
       } else {
         emit(LogoutError(message: 'No token found'));
       }
-    }on ServerException catch (e) {
+    } on ServerException catch (e) {
       emit(LogoutError(message: 'Logout failed: ${e.errModel.message}'));
     }
   }

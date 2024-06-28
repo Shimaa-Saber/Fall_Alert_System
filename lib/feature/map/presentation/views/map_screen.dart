@@ -278,6 +278,107 @@
 //   }
 // }
 
+// import 'dart:async';
+// import 'dart:convert';
+
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:geolocator/geolocator.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:permission_handler/permission_handler.dart';
+
+// class MapPage extends StatefulWidget {
+//   const MapPage({super.key});
+//   static String id = "MapScreen";
+
+//   @override
+//   State<MapPage> createState() => _MapPageState();
+// }
+
+// class _MapPageState extends State<MapPage> {
+//   final Completer<GoogleMapController> googleMapCompleterController =
+//       Completer<GoogleMapController>();
+//   GoogleMapController? controllerGoogleMap;
+//   Position? currentPositionOfUser;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     requestLocationPermission();
+//   }
+
+//   void requestLocationPermission() async {
+//     PermissionStatus permissionStatus = await Permission.location.request();
+//     if (permissionStatus.isGranted) {
+//       getCurrentLiveLocationOfUser();
+//     } else {
+//       // Handle permission denial
+//       print("Location permission denied");
+//     }
+//   }
+
+//   void updateMapTheme(GoogleMapController controller) {
+//     getJsonFileFromThemes("assets/themes/retio_style.json")
+//         .then((value) => setGoogleMapStyle(value, controller))
+//         .catchError((error) {
+//       print("Error loading map style: $error");
+//     });
+//   }
+
+//   Future<String> getJsonFileFromThemes(String mapStylePath) async {
+//     ByteData byteData = await rootBundle.load(mapStylePath);
+//     var list = byteData.buffer
+//         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+//     return utf8.decode(list);
+//   }
+
+//   void setGoogleMapStyle(
+//       String googleMapStyle, GoogleMapController controller) {
+//     controller.setMapStyle(googleMapStyle);
+//   }
+
+//   void getCurrentLiveLocationOfUser() async {
+//     Position positionOfUser = await Geolocator.getCurrentPosition(
+//         desiredAccuracy: LocationAccuracy.bestForNavigation);
+//     setState(() {
+//       currentPositionOfUser = positionOfUser;
+//     });
+
+//     LatLng positionOfUserInLatLng = LatLng(
+//         currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
+
+//     CameraPosition cameraPosition =
+//         CameraPosition(target: positionOfUserInLatLng, zoom: 15);
+//     controllerGoogleMap!
+//         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           GoogleMap(
+//             mapType: MapType.normal,
+//             myLocationEnabled: true,
+//             myLocationButtonEnabled: true,
+//             initialCameraPosition: const CameraPosition(
+//               target: LatLng(37.42796133580664, -122.085749655962),
+//               zoom: 14.4746,
+//             ),
+//             onMapCreated: (GoogleMapController mapController) {
+//               controllerGoogleMap = mapController;
+//               updateMapTheme(controllerGoogleMap!);
+//               googleMapCompleterController.complete(controllerGoogleMap);
+//               getCurrentLiveLocationOfUser();
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -290,13 +391,13 @@ import 'package:permission_handler/permission_handler.dart';
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
   static String id = "MapScreen";
+
   @override
   State<MapPage> createState() => _MapPageState();
 }
 
 class _MapPageState extends State<MapPage> {
-  final Completer<GoogleMapController> googleMapCompleterController =
-      Completer<GoogleMapController>();
+  final Completer<GoogleMapController> googleMapCompleterController = Completer<GoogleMapController>();
   GoogleMapController? controllerGoogleMap;
   Position? currentPositionOfUser;
 
@@ -311,13 +412,12 @@ class _MapPageState extends State<MapPage> {
     if (permissionStatus.isGranted) {
       getCurrentLiveLocationOfUser();
     } else {
-      // Handle permission denial
       print("Location permission denied");
     }
   }
 
   void updateMapTheme(GoogleMapController controller) {
-    getJsonFileFromThemes("assets/themes/retio_style.json")
+    getJsonFileFromThemes("assets/themes/retro_style.json")
         .then((value) => setGoogleMapStyle(value, controller))
         .catchError((error) {
       print("Error loading map style: $error");
@@ -326,27 +426,24 @@ class _MapPageState extends State<MapPage> {
 
   Future<String> getJsonFileFromThemes(String mapStylePath) async {
     ByteData byteData = await rootBundle.load(mapStylePath);
-    var list = byteData.buffer
-        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+    var list = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
     return utf8.decode(list);
   }
 
-  void setGoogleMapStyle(
-      String googleMapStyle, GoogleMapController controller) {
+  void setGoogleMapStyle(String googleMapStyle, GoogleMapController controller) {
     controller.setMapStyle(googleMapStyle);
   }
 
   void getCurrentLiveLocationOfUser() async {
-    Position positionOfUser = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.bestForNavigation);
-    currentPositionOfUser = positionOfUser;
-    LatLng positionOfUserInLatLng = LatLng(
-        currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
+    Position positionOfUser = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+    setState(() {
+      currentPositionOfUser = positionOfUser;
+    });
 
-    CameraPosition cameraPosition =
-        CameraPosition(target: positionOfUserInLatLng, zoom: 15);
-    controllerGoogleMap!
-        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    LatLng positionOfUserInLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
+
+    CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
+    controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
   @override
@@ -360,6 +457,7 @@ class _MapPageState extends State<MapPage> {
             myLocationButtonEnabled: true,
             initialCameraPosition: const CameraPosition(
               target: LatLng(37.42796133580664, -122.085749655962),
+              zoom: 14.4746,
             ),
             onMapCreated: (GoogleMapController mapController) {
               controllerGoogleMap = mapController;
@@ -367,7 +465,7 @@ class _MapPageState extends State<MapPage> {
               googleMapCompleterController.complete(controllerGoogleMap);
               getCurrentLiveLocationOfUser();
             },
-          )
+          ),
         ],
       ),
     );

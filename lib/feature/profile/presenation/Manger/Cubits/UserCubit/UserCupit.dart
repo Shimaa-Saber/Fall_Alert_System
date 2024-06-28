@@ -1,3 +1,4 @@
+import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesStates.dart';
 import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCubit/UserStates.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +32,17 @@ UserModel? user;
     }
   }
 
+// Future<void> fetchChats() async {
+//     emit(ChatLoading());
 
+//     try {
+//       final response = await api.get(EndPoints.chats);
+//       final chatResponse = ChatResponse.fromJson(response);
+//       emit(ChatLoadedSuccess(chatResponse));
+//     } on ServerException catch (error) {
+//       emit(ChatError(message: error.errModel.message!));
+//     }
+//   }
 
 
 

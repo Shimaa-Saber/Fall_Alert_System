@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/feature/messages/presentation/view/chat_view.dart';
 import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCubit/UserCupit.dart';
@@ -31,6 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+    // final chatCubit = BlocProvider.of<ChatCubit>(context);
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
         if (state is Userfailer) {
@@ -118,7 +118,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         await userCubit.getUserProfile();
         break;
       // case 3:
-      //   await _callBackend('messagesEndpoint');
+      //   await userCubit.fetchChats();
       //   break;
     }
 

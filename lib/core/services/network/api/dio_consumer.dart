@@ -1,5 +1,3 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:fall_detection/core/services/network/api/api_consumer.dart';
 import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
@@ -12,8 +10,8 @@ class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
-     dio.options.baseUrl = EndPoints.baseUrl;
-     dio.interceptors.add(ApiInterceptors());
+    dio.options.baseUrl = EndPoints.baseUrl;
+    dio.interceptors.add(ApiInterceptors());
     dio.interceptors.add(LogInterceptor(
       request: true,
       requestHeader: true,
@@ -37,8 +35,8 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
       );
       return response.data;
-    } on DioException  catch(e){
-       handleDioExceptions(e);
+    } on DioException catch (e) {
+      handleDioExceptions(e);
     }
   }
 
@@ -64,7 +62,7 @@ class DioConsumer extends ApiConsumer {
 
       );
       return response.data;
-    } on DioException  catch(e){
+    } on DioException catch (e) {
       handleDioExceptions(e);
     }
   }
@@ -83,7 +81,7 @@ class DioConsumer extends ApiConsumer {
         queryParameters: queryParameters,
       );
       return response.data;
-    } on DioException  catch(e){
+    } on DioException catch (e) {
       handleDioExceptions(e);
     }
   }
@@ -110,21 +108,19 @@ class DioConsumer extends ApiConsumer {
         ),
       );
       return response.data;
-    } on DioException  catch(e){
+    } on DioException catch (e) {
       handleDioExceptions(e);
     }
   }
 
-
-
   @override
-  Future Logout(
-      String path, {
-        dynamic data,
-        String? token,
-        Map<String, dynamic>? queryParameters,
-        bool isFormData = false,
-      }) async {
+  Future logout(
+    String path, {
+    dynamic data,
+    String? token,
+    Map<String, dynamic>? queryParameters,
+    bool isFormData = false,
+  }) async {
     try {
       final response = await dio.post(
         path,
@@ -134,21 +130,16 @@ class DioConsumer extends ApiConsumer {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${CacheHelper().getData(key: ApiKey.token)}',
+            'Authorization':
+                'Bearer ${CacheHelper().getData(key: ApiKey.token)}',
           },
         ),
       );
       return response.data;
-    } on DioException  catch(e){
+    } on DioException catch (e) {
       handleDioExceptions(e);
     }
   }
-
-
-
-
-
-
 
   @override
   Future put(
@@ -172,7 +163,7 @@ class DioConsumer extends ApiConsumer {
         ),
       );
       return response.data;
-    } on DioException  catch(e){
+    } on DioException catch (e) {
       handleDioExceptions(e);
     }
     throw UnimplementedError();

@@ -1,12 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fall_detection/core/services/network/api/api_consumer.dart';
 import 'package:fall_detection/core/services/network/error/exceptions.dart';
-import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 
 import '../../../../../../core/services/network/api/api_endpoints.dart';
-import '../../../../../auth/presentation/Manger/Cubits/AuthCubit/Auth_States.dart';
 import '../../../../Models/MessagesModel/MessagesModel.dart';
 import 'MessagesStates.dart';
 
