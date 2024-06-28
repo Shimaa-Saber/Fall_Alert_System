@@ -24,7 +24,7 @@ class FallDetectionApp extends StatelessWidget {
           create: (context) => AuthCubit(DioConsumer(dio: Dio())),
         ),
         BlocProvider<UserCubit>(
-          create: (context) => UserCubit(DioConsumer( dio: Dio())),
+          create: (context) => UserCubit(DioConsumer(dio: Dio())),
         ),
         BlocProvider(
           create: (context) => HomeCubit(DioConsumer(dio: Dio())),
