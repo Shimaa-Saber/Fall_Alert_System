@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:fall_detection/core/routes/app_route.dart';
 import 'package:fall_detection/core/routes/routes.dart';
 import 'package:fall_detection/feature/auth/presentation/Manger/Cubits/AuthCubit/Auth_Cubit.dart';
+import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesCubit.dart';
+import 'package:fall_detection/pusher_notiifcation_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,9 +15,29 @@ import 'feature/auth/data/logic/activate_cubit/activate_cubit.dart';
 import 'feature/home/data/logic/home_cubit/home_cubit.dart';
 import 'feature/profile/presenation/Manger/Cubits/UserCubit/UserCupit.dart';
 
-class FallDetectionApp extends StatelessWidget {
+class FallDetectionApp extends StatefulWidget {
   const FallDetectionApp({super.key, required this.appRouter});
   final AppRouter appRouter;
+
+  @override
+  State<FallDetectionApp> createState() => _FallDetectionAppState();
+}
+
+class _FallDetectionAppState extends State<FallDetectionApp> {
+  final PusherService _pusherService = PusherService();
+
+  @override
+  void initState() {
+    super.initState();
+    _pusherService.initPusher();
+  }
+
+  @override
+  void dispose() {
+    _pusherService.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -25,6 +47,9 @@ class FallDetectionApp extends StatelessWidget {
         ),
         BlocProvider<UserCubit>(
           create: (context) => UserCubit(DioConsumer(dio: Dio())),
+        ),
+        BlocProvider<ChatCubit>(
+          create: (context) => ChatCubit(DioConsumer(dio: Dio())),
         ),
         BlocProvider(
           create: (context) => HomeCubit(DioConsumer(dio: Dio())),
@@ -42,7 +67,7 @@ class FallDetectionApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.splashScreen,
-            onGenerateRoute: appRouter.generateRoute,
+            onGenerateRoute: widget.appRouter.generateRoute,
           ),
         ),
       ),

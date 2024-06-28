@@ -30,6 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final userCubit = BlocProvider.of<UserCubit>(context);
+    // final chatCubit = BlocProvider.of<ChatCubit>(context);
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
         if (state is Userfailer) {
@@ -117,7 +118,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         await userCubit.getUserProfile();
         break;
       // case 3:
-      //   await _callBackend('messagesEndpoint');
+      //   await userCubit.fetchChats();
       //   break;
     }
 

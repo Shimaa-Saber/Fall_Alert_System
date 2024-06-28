@@ -41,7 +41,7 @@ class MessageContainerInfo extends StatelessWidget {
                 radius: 32.r,
                 child: CircleAvatar(
                   radius: 30.r,
-                  backgroundImage: AssetImage(
+                  backgroundImage: NetworkImage(
                     image,
                   ),
                 ),
