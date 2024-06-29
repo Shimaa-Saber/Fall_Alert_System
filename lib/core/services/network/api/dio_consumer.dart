@@ -113,6 +113,55 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
+
+  @override
+  Future updateProfile(
+      String path, {
+        dynamic data,
+        String? token,
+        Map<String, dynamic>? queryParameters,
+        bool isFormData = false,
+      }) async {
+    try {
+      final response = await dio.post(
+        path,
+        data: isFormData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {
+            'Accept': 'application/json',
+            //'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${CacheHelper().getData(key: ApiKey.token)}',
+          },
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @override
   Future logout(
     String path, {
