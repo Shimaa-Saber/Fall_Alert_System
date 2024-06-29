@@ -6,6 +6,12 @@ import 'package:flutter/services.dart';
 import './fall_detection_app.dart';
 
 void main() async {
+//   final GoogleMapsFlutterPlatform mapsImplementation =
+//       GoogleMapsFlutterPlatform.instance;
+//   if (mapsImplementation is GoogleMapsFlutterAndroid) {
+//     // Force Hybrid Composition mode.
+//     mapsImplementation.useAndroidViewSurface = true;
+//   }
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
   await SystemChrome.setPreferredOrientations(

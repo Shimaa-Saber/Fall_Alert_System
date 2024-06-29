@@ -1,472 +1,256 @@
-// // // import 'package:flutter/material.dart';
-// // // import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-// // // class MapScreen extends StatefulWidget {
-// // //   const MapScreen({super.key});
-// // //   static String id = "MapScreen";
-
-// // //   @override
-// // //   State<MapScreen> createState() => _MapScreenState();
-// // // }
-
-// // // class _MapScreenState extends State<MapScreen> {
-// // //   static const LatLng _pGooglePlex = LatLng(37.4223, -122.084);
-// // //   @override
-// // //   Widget build(BuildContext context) {
-// // //     return Scaffold(
-// // //       body: GoogleMap(
-// // //         initialCameraPosition: CameraPosition(
-// // //           target: _pGooglePlex,
-// // //           zoom: 14,
-// // //         ),
-// // //         markers: {},
-// // //       ),
-// // //     );
-// // //   }
-// // // }
-// import 'dart:async';
-// import 'dart:convert';
-
+// import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
+// import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:geolocator/geolocator.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-// // import 'package:uber_app/global/global_var.dart';
+// import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:fall_detection/feature/home/data/logic/home_cubit/home_cubit.dart';
+// import 'package:fall_detection/feature/home/data/logic/home_cubit/home_state.dart';
+// import 'package:fall_detection/feature/home/data/models/home_screen_model.dart';
 
-// class MapPage extends StatefulWidget {
-//   const MapPage({super.key});
-//   static String id = "MapScreen";
-//   @override
-//   State<MapPage> createState() => _MapPageState();
-// }
-
-// class _MapPageState extends State<MapPage> {
-//   final Completer<GoogleMapController> googleMapCompleterController =
-//       Completer<GoogleMapController>();
-//   GoogleMapController? controllerGoogleMap;
-//   Position? currentPositionOfUser;
-
-//   void updateMapTheme(GoogleMapController controller) {
-//     getJsonFileFromThemes("themes/retio_style.json")
-//         .then((value) => setGoogleMapStyle(value, controller));
-//   }
-
-//   Future<String> getJsonFileFromThemes(String mapStylePath) async {
-//     ByteData byteData = await rootBundle.load(mapStylePath);
-//     var list = byteData.buffer
-//         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-//     return utf8.decode(list);
-//   }
-
-//   setGoogleMapStyle(String googleMapStyle, GoogleMapController controller) {
-//     controller.setMapStyle(googleMapStyle);
-//   }
-
-//   getCurrentLiveLocationOfUser() async {
-//     Position positionOfUser = await Geolocator.getCurrentPosition(
-//         desiredAccuracy: LocationAccuracy.bestForNavigation);
-//     currentPositionOfUser = positionOfUser;
-//     LatLng positionOfUserInLatLng = LatLng(
-//         currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
-
-//     CameraPosition cameraPosition =
-//         CameraPosition(target: positionOfUserInLatLng, zoom: 15);
-//     controllerGoogleMap!
-//         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-//   }
+// class MapScreen extends StatefulWidget {
+//   const MapScreen({super.key});
 
 //   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Stack(
-//         children: [
-//           GoogleMap(
-//             mapType: MapType.normal,
-//             myLocationButtonEnabled: true,
-//             initialCameraPosition: const CameraPosition(
-//               target: LatLng(37.42796133580664, -122.085749655962),
-//             ),
-//             onMapCreated: (GoogleMapController mapController) {
-//               controllerGoogleMap = mapController;
-//               updateMapTheme(controllerGoogleMap!);
-//               googleMapCompleterController.complete(controllerGoogleMap);
-//               getCurrentLiveLocationOfUser();
-//             },
-//           )
-//         ],
-//       ),
-//     );
-//   }
+//   _MapScreenState createState() => _MapScreenState();
 // }
 
-// // import 'package:flutter/material.dart';
-// // import 'package:flutter_map/flutter_map.dart';
-// // import 'package:latlong2/latlong.dart';
-
-// // class MapPage extends StatelessWidget {
-// //   const MapPage({Key? key}) : super(key: key); // Fix the constructor
-
-// //   static String id = "MapScreen";
-
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       body: FlutterMap(
-// //         options: const MapOptions(
-// //           initialCenter: LatLng(51.5, -0.09), // Set the initial location here
-// //           initialZoom: 13.0,
-// //         ),
-// //         children: [
-// //           TileLayer(
-// //             urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-// //             subdomains: ['a', 'b', 'c'],
-// //           ),
-// //           const MarkerLayer(markers: [
-// //             Marker(
-// //               point: LatLng(51.5, -0.09), // Set the marker location here
-// //               child: Icon(
-// //                 Icons.location_on,
-// //                 color: Colors.red,
-// //               ),
-// //             )
-// //           ])
-// //         ],
-// //       ),
-// //     );
-// //   }
-// // }
-
-// import 'dart:async';
-// import 'dart:convert';
-
-// import 'package:dio/dio.dart';
-// // import 'package:fall_detection_app/cubits/AuthCubit/AuthCubit.dart';
-// // import 'package:fall_detection_app/screens/patientprofile/patientprofile.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-// class MapPage extends StatefulWidget {
-//   const MapPage({super.key});
-//   static const String id = "MapScreen";
-
-//   @override
-//   State<MapPage> createState() => _MapPageState();
-// }
-
-// class _MapPageState extends State<MapPage> {
-//   final Completer<GoogleMapController> _googleMapCompleterController =
-//       Completer<GoogleMapController>();
-//   GoogleMapController? _controllerGoogleMap;
-//   final Set<Marker> _markers = {};
-
-//   void updateMapTheme(GoogleMapController controller) {
-//     getJsonFileFromThemes("themes/retio_style.json")
-//         .then((value) => setGoogleMapStyle(value, controller));
-//   }
-
-//   Future<String> getJsonFileFromThemes(String mapStylePath) async {
-//     ByteData byteData = await rootBundle.load(mapStylePath);
-//     var list = byteData.buffer
-//         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-//     return utf8.decode(list);
-//   }
-
-//   void setGoogleMapStyle(
-//       String googleMapStyle, GoogleMapController controller) {
-//     controller.setMapStyle(googleMapStyle);
-//   }
-
-//   // void getCurrentLiveLocationOfUser() {
-//   //   _controllerGoogleMap!.myLocationEnabled = true;
-//   //   _controllerGoogleMap!.myLocationButtonEnabled = true;
-//   //   _controllerGoogleMap!.setMyLocationButtonEnabled(true);
-//   //   _controllerGoogleMap!.setMapStyle(null);
-//   // }
+// class _MapScreenState extends State<MapScreen> {
+//   final MapController controller = MapController(
+//     // initMapWithUserPosition: const UserTrackingOption(
+//     //   enableTracking: true,
+//     // ),
+//     initPosition: GeoPoint(latitude: 51.5, longitude: -0.09),
+//   );
 
 //   @override
 //   void initState() {
 //     super.initState();
-
-//     // fetchLocationsAndDisplayMarkers();
+//     fetchHomeScreenData();
 //   }
 
-//   // Future<void> fetchLocationsAndDisplayMarkers() async {
-//   //   final String apiUrl =
-//   //       'http://falldetect.somee.com/api/FallEventDetail'; // Update with the correct API URL
-//   //   final Dio dio = Dio();
-
-//   //   try {
-//   //     final response = await dio.get(apiUrl);
-//   //     if (response.statusCode == 200) {
-//   //       List<dynamic> usersData = response.data;
-//   //       _markers.clear(); // Clear existing markers
-
-//   //       for (var userData in usersData) {
-//   //         final marker = Marker(
-//   //           markerId: MarkerId("${userData['detailID']}"),
-//   //           position: LatLng(
-//   //               userData['fallLocation_Lat'], userData['fallLocation_Long']),
-//   //           infoWindow: InfoWindow(
-//   //             title: "Detail ID: ${userData['detailID']}",
-//   //             snippet: "Fall Event ID: ${userData['fallEventID']}",
-//   //           ),
-//   //           onTap: () {
-//   //             // context.read<UserCubit>().getPatientcontact();
-//   //             // Navigator.pushNamed(
-//   //             //   context,
-//   //             //   PatientInfo.id,
-//   //             //   arguments: {
-//   //             //     'detailID': userData['detailID'],
-//   //             //     'fallEventID': userData['fallEventID'],
-//   //             //     // Add any other data you want to pass
-//   //             //   },
-//   //             // );
-//   //             // You can handle marker tap here
-//   //             /*  Navigator.pushNamed(
-//   //               context,
-//   //               'PatientProfile',
-//   //               arguments: {
-//   //                 'detailID': userData['detailID'],
-//   //                 'fallEventID': userData['fallEventID'],
-//   //                 // Add any other data you want to pass
-//   //               },
-//   //             );*/
-//   //             print("Tapped on marker with Detail ID: ${userData['detailID']}");
-//   //           },
-//   //         );
-
-//   //         setState(() {
-//   //           _markers.add(marker);
-//   //         });
-//   //       }
-//   //     } else {
-//   //       print('Failed to load locations: ${response.statusCode}');
-//   //     }
-//   //   } catch (e) {
-//   //     print('Error fetching locations: $e');
-//   //   }
-//   // }
+//   void fetchHomeScreenData() {
+//     final homeCubit = context.read<HomeCubit>();
+//     homeCubit.getHomeScreenData(
+//       token: CacheHelper.sharedPreferences.getString(ApiKey.token) ?? '',
+//     );
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       body: Stack(
-//         children: [
-//           GoogleMap(
-//             initialCameraPosition: const CameraPosition(
-//               target:
-//                   LatLng(21, 0), // Initial position adjusted for demonstration
-//               zoom: 0, // Initial zoom adjusted for demonstration
-//             ),
-//             mapType: MapType.normal,
-//             myLocationButtonEnabled: true,
-//             markers: _markers,
-//             onMapCreated: (GoogleMapController controller) {
-//               _controllerGoogleMap = controller;
-//               _googleMapCompleterController.complete(controller);
+//       appBar: AppBar(
+//         title: const Text('OpenStreetMap Example'),
+//       ),
+//       body: BlocBuilder<HomeCubit, HomeState>(
+//         builder: (context, state) {
+//           if (state is HomeLoadingState) {
+//             return const Center(child: CircularProgressIndicator());
+//           } else if (state is HomeLoaded) {
+//             addMarkers(state.alerts);
+//             return OSMFlutter(
+//               osmOption: const OSMOption(
+//                 roadConfiguration: RoadOption(
+//                   roadColor: Colors.yellowAccent,
+//                   roadWidth: 2.0,
+//                   zoomInto: true,
+//                 ),
+//               ),
+//               controller: controller,
+//               onGeoPointClicked: (p0) {
+//                 print(p0);
+//               },
+//               // onMapMoved: (p0) {
+//               //   print(p0);
+//               // },
+//               onLocationChanged: (p0) {
+//                 print(p0);
+//               },
+//               onMapIsReady: (p0) {
+//                 print(p0);
+//               },
+//             );
+//           } else if (state is HomeErrorState) {
+//             return Center(child: Text(state.message));
+//           } else {
+//             return const Center(child: Text('Unknown state'));
+//           }
+//         },
+//       ),
+//     );
+//   }
 
-//               updateMapTheme(controller);
-//               // fetchLocationsAndDisplayMarkers();
-
-//               setState(() {});
+//   // ignore: non_constant_identifier_names
+//   Future<void> addMarkers(List<HomeScreenModel> HomeScreenModel) async {
+//     for (var person in HomeScreenModel) {
+//       await controller.addMarker(
+//         GeoPoint(
+//           latitude: person.latitude,
+//           longitude: person.longitude,
+//         ),
+//         markerIcon: MarkerIcon(
+//           iconWidget: GestureDetector(
+//             onTap: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) =>
+//                       PatientProfileScreen(personId: person.id),
+//                 ),
+//               );
 //             },
+//             child: const Icon(
+//               Icons.location_on,
+//               color: Colors.red,
+//               size: 48,
+//             ),
 //           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// import 'dart:async';
-// import 'dart:convert';
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:geolocator/geolocator.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:permission_handler/permission_handler.dart';
-
-// class MapPage extends StatefulWidget {
-//   const MapPage({super.key});
-//   static String id = "MapScreen";
-
-//   @override
-//   State<MapPage> createState() => _MapPageState();
-// }
-
-// class _MapPageState extends State<MapPage> {
-//   final Completer<GoogleMapController> googleMapCompleterController =
-//       Completer<GoogleMapController>();
-//   GoogleMapController? controllerGoogleMap;
-//   Position? currentPositionOfUser;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     requestLocationPermission();
-//   }
-
-//   void requestLocationPermission() async {
-//     PermissionStatus permissionStatus = await Permission.location.request();
-//     if (permissionStatus.isGranted) {
-//       getCurrentLiveLocationOfUser();
-//     } else {
-//       // Handle permission denial
-//       print("Location permission denied");
+//         ),
+//       );
 //     }
 //   }
+// }
 
-//   void updateMapTheme(GoogleMapController controller) {
-//     getJsonFileFromThemes("assets/themes/retio_style.json")
-//         .then((value) => setGoogleMapStyle(value, controller))
-//         .catchError((error) {
-//       print("Error loading map style: $error");
-//     });
-//   }
+// class PatientProfileScreen extends StatelessWidget {
+//   final int personId;
 
-//   Future<String> getJsonFileFromThemes(String mapStylePath) async {
-//     ByteData byteData = await rootBundle.load(mapStylePath);
-//     var list = byteData.buffer
-//         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-//     return utf8.decode(list);
-//   }
-
-//   void setGoogleMapStyle(
-//       String googleMapStyle, GoogleMapController controller) {
-//     controller.setMapStyle(googleMapStyle);
-//   }
-
-//   void getCurrentLiveLocationOfUser() async {
-//     Position positionOfUser = await Geolocator.getCurrentPosition(
-//         desiredAccuracy: LocationAccuracy.bestForNavigation);
-//     setState(() {
-//       currentPositionOfUser = positionOfUser;
-//     });
-
-//     LatLng positionOfUserInLatLng = LatLng(
-//         currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
-
-//     CameraPosition cameraPosition =
-//         CameraPosition(target: positionOfUserInLatLng, zoom: 15);
-//     controllerGoogleMap!
-//         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-//   }
+//   const PatientProfileScreen({super.key, required this.personId});
 
 //   @override
 //   Widget build(BuildContext context) {
+//     // Fetch and display patient details using personId
 //     return Scaffold(
-//       body: Stack(
-//         children: [
-//           GoogleMap(
-//             mapType: MapType.normal,
-//             myLocationEnabled: true,
-//             myLocationButtonEnabled: true,
-//             initialCameraPosition: const CameraPosition(
-//               target: LatLng(37.42796133580664, -122.085749655962),
-//               zoom: 14.4746,
-//             ),
-//             onMapCreated: (GoogleMapController mapController) {
-//               controllerGoogleMap = mapController;
-//               updateMapTheme(controllerGoogleMap!);
-//               googleMapCompleterController.complete(controllerGoogleMap);
-//               getCurrentLiveLocationOfUser();
-//             },
-//           ),
-//         ],
+//       appBar: AppBar(
+//         title: const Text('Patient Profile'),
+//       ),
+//       body: Center(
+//         child: Text('Patient ID: $personId'),
 //       ),
 //     );
 //   }
 // }
-
-import 'dart:async';
-import 'dart:convert';
-
+import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
+import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fall_detection/feature/home/data/logic/home_cubit/home_cubit.dart';
+import 'package:fall_detection/feature/home/data/logic/home_cubit/home_state.dart';
+import 'package:fall_detection/feature/home/data/models/home_screen_model.dart';
 
-class MapPage extends StatefulWidget {
-  const MapPage({super.key});
-  static String id = "MapScreen";
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
 
   @override
-  State<MapPage> createState() => _MapPageState();
+  _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapPageState extends State<MapPage> {
-  final Completer<GoogleMapController> googleMapCompleterController = Completer<GoogleMapController>();
-  GoogleMapController? controllerGoogleMap;
-  Position? currentPositionOfUser;
+class _MapScreenState extends State<MapScreen> {
+  final MapController controller = MapController(
+    initPosition: GeoPoint(latitude: 51.5, longitude: -0.09),
+  );
 
   @override
   void initState() {
     super.initState();
-    requestLocationPermission();
+    fetchHomeScreenData();
   }
 
-  void requestLocationPermission() async {
-    PermissionStatus permissionStatus = await Permission.location.request();
-    if (permissionStatus.isGranted) {
-      getCurrentLiveLocationOfUser();
-    } else {
-      print("Location permission denied");
-    }
-  }
-
-  void updateMapTheme(GoogleMapController controller) {
-    getJsonFileFromThemes("assets/themes/retro_style.json")
-        .then((value) => setGoogleMapStyle(value, controller))
-        .catchError((error) {
-      print("Error loading map style: $error");
-    });
-  }
-
-  Future<String> getJsonFileFromThemes(String mapStylePath) async {
-    ByteData byteData = await rootBundle.load(mapStylePath);
-    var list = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-    return utf8.decode(list);
-  }
-
-  void setGoogleMapStyle(String googleMapStyle, GoogleMapController controller) {
-    controller.setMapStyle(googleMapStyle);
-  }
-
-  void getCurrentLiveLocationOfUser() async {
-    Position positionOfUser = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-    setState(() {
-      currentPositionOfUser = positionOfUser;
-    });
-
-    LatLng positionOfUserInLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
-
-    CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
-    controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  void fetchHomeScreenData() {
+    final homeCubit = context.read<HomeCubit>();
+    homeCubit.getHomeScreenData(
+      token: CacheHelper.sharedPreferences.getString(ApiKey.token) ?? '',
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          GoogleMap(
-            mapType: MapType.normal,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            initialCameraPosition: const CameraPosition(
-              target: LatLng(37.42796133580664, -122.085749655962),
-              zoom: 14.4746,
-            ),
-            onMapCreated: (GoogleMapController mapController) {
-              controllerGoogleMap = mapController;
-              updateMapTheme(controllerGoogleMap!);
-              googleMapCompleterController.complete(controllerGoogleMap);
-              getCurrentLiveLocationOfUser();
-            },
+      appBar: AppBar(
+        title: const Text('OpenStreetMap Example'),
+      ),
+      body: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          if (state is HomeLoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is HomeLoaded) {
+            addMarkers(state.alerts);
+            return OSMFlutter(
+              osmOption: const OSMOption(
+                roadConfiguration: RoadOption(
+                  roadColor: Colors.yellowAccent,
+                  roadWidth: 2.0,
+                  zoomInto: true,
+                ),
+              ),
+              controller: controller,
+              onGeoPointClicked: (p0) {
+                print(p0);
+              },
+              onLocationChanged: (p0) {
+                print(p0);
+              },
+              onMapIsReady: (p0) {
+                print(p0);
+              },
+            );
+          } else if (state is HomeErrorState) {
+            return Center(child: Text(state.message));
+          } else {
+            return const Center(child: Text('Unknown state'));
+          }
+        },
+      ),
+    );
+  }
+
+  Future<void> addMarkers(List<HomeScreenModel> homeScreenModels) async {
+    for (var person in homeScreenModels) {
+      try {
+        await controller.addMarker(
+          GeoPoint(
+            latitude: person.latitude,
+            longitude: person.longitude,
           ),
-        ],
+          markerIcon: MarkerIcon(
+            iconWidget: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        PatientProfileScreen(personId: person.id),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.location_on,
+                color: Colors.red,
+                size: 48,
+              ),
+            ),
+          ),
+        );
+      } catch (e) {
+        print('Error adding marker for person ${person.id}: $e');
+      }
+    }
+  }
+}
+
+class PatientProfileScreen extends StatelessWidget {
+  final int personId;
+
+  const PatientProfileScreen({super.key, required this.personId});
+
+  @override
+  Widget build(BuildContext context) {
+    // Fetch and display patient details using personId
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Patient Profile'),
+      ),
+      body: Center(
+        child: Text('Patient ID: $personId'),
       ),
     );
   }

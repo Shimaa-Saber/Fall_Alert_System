@@ -17,20 +17,20 @@ class EndPoints {
   static String verifyUserAccount = 'caregivers/verify-email';
   static String resendCode = "caregivers/resend-code";
   static String resetPassword = "caregivers/reset-password";
-  static String logout='auth/logout';
-  static String chats='me/chats';
+  static String logout = 'auth/logout';
+  static String chats = 'me/chats';
+  static String map = 'falls?deep=true';
   //static String forgetPassword="caregivers/forgot-password";
 
   //caregivers/resend-code
 }
-
 
 class ApiKey {
   static String status = "status";
   static String errorMessage = "ErrorMessage";
   static String email = "email";
   static String password = "password";
-  static String Authorization="Authorization";
+  static String Authorization = "Authorization";
   static String token = "token";
   static String message = "message";
   static String id = "id";
@@ -48,4 +48,3 @@ class ApiKey {
 
   static String device_name = "device_name";
 }
-

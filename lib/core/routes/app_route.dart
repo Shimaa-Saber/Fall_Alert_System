@@ -73,7 +73,7 @@ class AppRouter {
         );
       case Routes.mapScreen:
         return MaterialPageRoute(
-          builder: (_) => const MapPage(),
+          builder: (_) => const MapScreen(),
         );
 
       case Routes.ChatView:
@@ -89,23 +89,22 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const ProfileScreen(),
         );
-
       case Routes.forgotPassword:
         return MaterialPageRoute(
-          builder: (_) =>  forgotPassword(),
+          builder: (_) => forgotPassword(),
         );
       case Routes.resetPasswordCode:
         return MaterialPageRoute(
-          builder: (_) =>  ResetpasswordCode(),
+          builder: (_) => const ResetpasswordCode(),
         );
 
       case Routes.resetPassword:
         return MaterialPageRoute(
-          builder: (_) =>  resetPassword(),
+          builder: (_) => resetPassword(),
         );
       case Routes.resetPasswordDone:
         return MaterialPageRoute(
-          builder: (_) =>  Resetpassworddone(),
+          builder: (_) => const Resetpassworddone(),
         );
       default:
         return MaterialPageRoute(
