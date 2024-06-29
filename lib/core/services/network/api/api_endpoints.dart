@@ -13,11 +13,14 @@ class EndPoints {
   static String getCountry = 'location/countries';
   static String getStates = 'location/states';
   static String getPatientProfile='patients/11';
+  static String getAllNotifications='notifications';
 
   static String homeScreen = "falls?deep=true";
   static String verifyUserAccount = 'caregivers/verify-email';
   static String resendCode = "caregivers/resend-code";
   static String resetPassword = "caregivers/reset-password";
+  static String logout='auth/logout';
+  static String chats='me/chats';
   //static String forgetPassword="caregivers/forgot-password";
 
   //caregivers/resend-code
