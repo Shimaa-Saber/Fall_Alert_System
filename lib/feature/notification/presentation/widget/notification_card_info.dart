@@ -1,6 +1,5 @@
 import 'package:fall_detection/core/extensions/context_extension.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
-import 'package:fall_detection/core/styles/images/assets.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,12 +8,12 @@ class NotificationContainerInfo extends StatelessWidget {
   const NotificationContainerInfo({
     super.key,
     required this.icon,
-    required this.title,
+    required this.content,
     required this.min,
     required this.image,
   });
   final IconData icon;
-  final String title;
+  final String content;
   final String min;
   final String image;
   @override
@@ -55,7 +54,7 @@ class NotificationContainerInfo extends StatelessWidget {
                     SizedBox(
                       width: context.width * 0.5,
                       child: Text(
-                        title,
+                        content,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,

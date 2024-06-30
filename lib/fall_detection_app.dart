@@ -3,6 +3,8 @@ import 'package:fall_detection/core/routes/app_route.dart';
 import 'package:fall_detection/core/routes/routes.dart';
 import 'package:fall_detection/feature/auth/presentation/Manger/Cubits/AuthCubit/Auth_Cubit.dart';
 import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesCubit.dart';
+import 'package:fall_detection/feature/notification/presentation/manger/cubits/notificationsCubit.dart';
+import 'package:fall_detection/feature/patient/presentation/manger/PatientCubits/PatientCubits.dart';
 import 'package:fall_detection/pusher_notiifcation_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,8 +50,14 @@ class _FallDetectionAppState extends State<FallDetectionApp> {
         BlocProvider<UserCubit>(
           create: (context) => UserCubit(DioConsumer(dio: Dio())),
         ),
+        BlocProvider<PatientCubit>(
+          create: (context) => PatientCubit(DioConsumer(dio: Dio())),
+        ),
         BlocProvider<ChatCubit>(
           create: (context) => ChatCubit(DioConsumer(dio: Dio())),
+        ),
+        BlocProvider<NotificationsCubit>(
+          create: (context) => NotificationsCubit(DioConsumer(dio: Dio())),
         ),
         BlocProvider(
           create: (context) => HomeCubit(DioConsumer(dio: Dio())),

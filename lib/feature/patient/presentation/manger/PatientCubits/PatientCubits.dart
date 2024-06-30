@@ -6,9 +6,9 @@ import '../../../../../../core/services/network/api/api_endpoints.dart';
 import '../../../../../../core/services/network/error/exceptions.dart';
 
 class PatientCubit extends Cubit<PatientState> {
-  final ApiConsumer api;
 
-  PatientCubit(super.initialState, this.api);
+  PatientCubit( this.api) :super(PatientInitialstate());
+  final ApiConsumer api;
 
   PatientModel? patient;
 
