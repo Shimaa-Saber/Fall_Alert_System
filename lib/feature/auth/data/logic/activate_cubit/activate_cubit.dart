@@ -13,8 +13,6 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
   final List<TextEditingController> otpControllers =
       List.generate(4, (_) => TextEditingController());
 
-
-
   void onOTPChanged(String value) {
     // Handle OTP change
     print('OTP changed: $value');
@@ -32,9 +30,10 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
       controller.clear();
     }
   }
-  TextEditingController resetPasswordemail =TextEditingController();
-  TextEditingController resetPassword= TextEditingController();
-  TextEditingController confirmPassword=TextEditingController();
+
+  TextEditingController resetPasswordemail = TextEditingController();
+  TextEditingController resetPassword = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
 
   ActivateUserModel? user;
 
@@ -61,7 +60,6 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
     }
   }
 
-
   Future<void> resendOTP(String email, String type) async {
     emit(OTPResendLoading());
 
@@ -73,15 +71,12 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
           ApiKey.type: type,
         },
       );
-      user=ActivateUserModel.fromJson(response);
+      user = ActivateUserModel.fromJson(response);
       emit(OTPResendSuccess(response['message']));
     } on ServerException catch (e) {
-      emit(OTPResendFailure(error: e.errModel.message! ));
+      emit(OTPResendFailure(error: e.errModel.message!));
     }
   }
-
-
-
 
   Future<void> sendResetPasswordEmail() async {
     emit(ForgotPasswordLoading());
@@ -93,16 +88,14 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
           ApiKey.email: resetPasswordemail.text,
         },
       );
-      user=ActivateUserModel.fromJson(response);
+      user = ActivateUserModel.fromJson(response);
       emit(ForgotPasswordSuccess(response['message']));
-    }on ServerException catch (e) {
-      emit(ForgotPasswordError(error:e.errModel.message!));
+    } on ServerException catch (e) {
+      emit(ForgotPasswordError(error: e.errModel.message!));
     }
   }
 
   Future<void> resetPasswordFun() async {
-
-
     try {
       emit(ResetPasswordLoading());
       final otp = otpControllers.map((controller) => controller.text).join();
@@ -115,37 +108,11 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
           ApiKey.password_confirmation: confirmPassword.text,
         },
       );
-      user=ActivateUserModel.fromJson(response);
+      user = ActivateUserModel.fromJson(response);
       emit(ResetPasswordSuccess(response['message']));
     } on ServerException catch (e) {
-      emit(ResetPasswordError(error:e.errModel.message?? "uknown error occurred"));
+      emit(ResetPasswordError(
+          error: e.errModel.message ?? "uknown error occurred"));
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

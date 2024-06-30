@@ -13,29 +13,32 @@ import '../../../../core/styles/colors/colors.dart';
 import '../../../../core/utils/spacing.dart';
 
 class resetPassword extends StatelessWidget {
-   resetPassword({Key? key}) : super(key: key);
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  resetPassword({super.key});
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ActivateUserCubit,ActivateUserState>(
+    // final forgetPasswordCubit = BlocProvider<A>
+    return BlocConsumer<ActivateUserCubit, ActivateUserState>(
       listener: (context, state) {
-
         if (state is ResetPasswordSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-
             SnackBar(
                 backgroundColor: Colors.blue,
-                content: Text(state.message,style: TextStyle(color: Colors.white))),
+                content: Text(state.message,
+                    style: const TextStyle(color: Colors.white))),
           );
           Navigator.pushNamed(context, Routes.resetPasswordDone);
         } else if (state is ResetPasswordError) {
           ScaffoldMessenger.of(context).showSnackBar(
-
             SnackBar(
-              backgroundColor: Colors.blue,
-                content: Text(state.error,style: TextStyle(color: Colors.white),)),
+                backgroundColor: Colors.blue,
+                content: Text(
+                  state.error,
+                  style: const TextStyle(color: Colors.white),
+                )),
           );
         }
       },
@@ -49,87 +52,104 @@ class resetPassword extends StatelessWidget {
               onPressed: () {
                 context.pop();
               },
-              icon:  Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: AppColors.primaryColor,
               ),
             ),
           ),
+          body: state is ResetPasswordLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Form(
+                  key: _key,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            verticalSpace(20),
+                            Text(
+                              'Reset Password? ',
+                              style: TextStyle(
+                                  fontSize: 32.sp, fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              'Please enter your new password to',
+                              style: TextStyle(
+                                  fontSize: 16.sp, fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              'continue',
+                              style: TextStyle(
+                                  fontSize: 16.sp, fontWeight: FontWeight.w700),
+                            ),
 
-          body:state is ResetPasswordLoading? Center(child: const CircularProgressIndicator()): Form(
-            key: _key,
-            child: SingleChildScrollView(
-              child: Padding(
+                            verticalSpace(100),
+                            TextFormFieldWidget(
+                              controller: context
+                                  .read<ActivateUserCubit>()
+                                  .resetPassword,
+                              keyboardType: TextInputType.visiblePassword,
+                              onChanged: (value) {},
+                              hintText: 'Enter Your Password',
+                              icon: Icons.password_outlined,
+                              validator: (value) {
+                                if (value!.isEmpty || value.length < 6) {
+                                  return 'Please Enter Correct Password';
+                                }
+                                return null;
+                              },
+                            ),
 
-                padding:  EdgeInsets.symmetric(horizontal: 15.0.w),
-                child: Center(
-                  child: Column(
+                            verticalSpace(20),
+                            TextFormFieldWidget(
+                              controller: context
+                                  .read<ActivateUserCubit>()
+                                  .confirmPassword,
+                              keyboardType: TextInputType.visiblePassword,
+                              onChanged: (value) {},
+                              hintText: 'Confirm Password',
+                              icon: Icons.password_outlined,
+                              validator: (value) {
+                                if (value!.isEmpty || value.length < 6) {
+                                  return 'Please Enter Correct Password';
+                                }
+                                if (value !=
+                                    context
+                                        .read<ActivateUserCubit>()
+                                        .resetPassword
+                                        .text) {
+                                  return 'Passwords do not match';
+                                }
+                                return null;
+                              },
+                            ),
 
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      verticalSpace(20),
-                      Text('Reset Password? ',style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w700),),
-                      Text('Please enter your new password to',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700),),
-                      Text('continue',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w700),),
+                            verticalSpace(120),
 
-
-                      verticalSpace(100),
-                      TextFormFieldWidget(
-                        controller: context.read<ActivateUserCubit>().resetPassword,
-                        keyboardType: TextInputType.visiblePassword,
-                        onChanged: (value) {},
-                        hintText: 'Enter Your Password',
-                        icon: Icons.password_outlined,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 6) {
-                            return 'Please Enter Correct Password';
-                          }
-                          return null;
-                        },
-
+                            ElevatedButtonWidget(
+                              title: 'Reset Password ',
+                              tap: () {
+                                if (_key.currentState!.validate()) {
+                                  print('validate');
+                                  context
+                                      .read<ActivateUserCubit>()
+                                      .resetPasswordFun();
+                                  //Navigator.pushNamed(context, Routes.resetPasswordDone);
+                                }
+                              },
+                            )
+                            //Please enter your email so we can
+                          ],
+                        ),
                       ),
-
-                      verticalSpace(20),
-                      TextFormFieldWidget(
-                        controller: context.read<ActivateUserCubit>().confirmPassword,
-                        keyboardType: TextInputType.visiblePassword,
-                        onChanged: (value) {},
-                        hintText: 'Confirm Password',
-                        icon: Icons.password_outlined,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 6) {
-                            return 'Please Enter Correct Password';
-                          }
-                          if (value != context.read<ActivateUserCubit>().resetPassword.text) {
-                            return 'Passwords do not match';
-                          }
-                          return null;
-                        },
-
-                      ),
-
-                      verticalSpace(120),
-
-                      ElevatedButtonWidget(
-                        title: 'Reset Password ',
-                        tap: (){
-                          if (_key.currentState!.validate()) {
-                            print('validate');
-                            context.read<ActivateUserCubit>().resetPasswordFun();
-                            //Navigator.pushNamed(context, Routes.resetPasswordDone);
-                          }
-                        },
-                      )
-                      //Please enter your email so we can
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
         );
       },
-
     );
   }
 }
