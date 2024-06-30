@@ -15,7 +15,11 @@ class AppSuccessState extends AppState {
 }
 
 class AppLoadedSuccess extends AppState {
-  AppLoadedSuccess(ChatResponse chatResponse);
+  final ChatResponse chatResponse;
+
+  AppLoadedSuccess({required this.chatResponse});
+
+
 }
 
 class AppLoadedSuccess2 extends AppState {

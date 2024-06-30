@@ -1,3 +1,5 @@
+import 'package:fall_detection/core/common/cubit/app_cubit/app_cubit.dart';
+import 'package:fall_detection/core/common/cubit/app_cubit/app_state.dart';
 import 'package:fall_detection/core/styles/images/assets.dart';
 import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesCubit.dart';
 import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesStates.dart';
@@ -18,78 +20,80 @@ class MessageView extends StatelessWidget {
   // static String id = 'notification_view';
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ChatCubit,ChatState>(
+    return BlocConsumer<AppCubit,AppState>(
       listener: (context, state) {
-        if (state is ChatError) {
+        if (state is AppFailerState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.blue,
-                content: Text(state.message)),
+                content: Text(state.errorMessage)),
           );
         }
       },
       builder: (context, state) {
-        if (state is ChatLoading){
+        if (state is AppLoadingState){
           return Center(child: const CircularProgressIndicator());
-        }else if (state is ChatLoadedSuccess){
+        }else if (state is AppLoadedSuccess){
           final Chats=state.chatResponse.chats;
           return  Scaffold(
             backgroundColor: AppColors.primaryColor,
-            body: Column(
-              children: [
-                Padding(
-                  // horizontal: context.width * 0.033,
-                  // vertical: context.height * 0.053,
-                  padding: EdgeInsets.only(
-                    top: context.height * 0.053,
-                    left: context.width * 0.033,
-                    right: context.width * 0.033,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    // horizontal: context.width * 0.033,
+                    // vertical: context.height * 0.053,
+                    padding: EdgeInsets.only(
+                      top: context.height * 0.053,
+                      left: context.width * 0.033,
+                      right: context.width * 0.033,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      verticalSpace(12),
-                      const MessageTextWidget(),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: context.height * 0.76093,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40.r),
+                        verticalSpace(12),
+                        const MessageTextWidget(),
+                      ],
                     ),
                   ),
-                  child: ListView.builder(
-                    itemCount: Chats.length,
-                    itemBuilder: (context, index) {
-                      final chat =Chats[index];
-                      return GestureDetector(
-                        onTap: (){
-                          Navigator.pushNamed(context, Routes.ChatView);
-                        },
-                        child:  Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: MessageContainerInfo(
-                              image: chat.sender.photo!,
-                              title: '${chat.sender.name}',
-                              text: '${chat.message}',
-                              min: '${chat.createdAt}',
-                            )),
-                      );
-                    },
-                  ),
-                )
-              ],
+                  Container(
+                    height: context.height * 0.76093,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.r),
+                      ),
+                    ),
+                    child: ListView.builder(
+                      itemCount: Chats.length,
+                      itemBuilder: (context, index) {
+                        final chat =Chats[index];
+                        return GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamed(context, Routes.ChatView);
+                          },
+                          child:  Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: MessageContainerInfo(
+                                image: chat.sender.photo ?? AppAssetsImages.fallingImage,
+                                title: chat.sender.name ?? 'Unknown Sender',
+                                text: chat.message ?? 'No message',
+                                min: chat.createdAt ?? DateTime.now().toIso8601String(),
+                              )),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         }else {

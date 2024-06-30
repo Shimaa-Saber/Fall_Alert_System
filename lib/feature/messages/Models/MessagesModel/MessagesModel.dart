@@ -9,8 +9,8 @@ class ChatResponse {
 
   factory ChatResponse.fromJson(Map<String, dynamic> json) {
     return ChatResponse(
-      status: json['status'],
-      chats: (json['chats'] as List).map((i) => Chat.fromJson(i)).toList(),
+      status: json['status'] ?? '',
+      chats: (json['chats'] as List).map((i) => Chat.fromJson(i as Map<String, dynamic>)).toList(),
     );
   }
 
@@ -39,11 +39,11 @@ class Chat {
 
   factory Chat.fromJson(Map<String, dynamic> json) {
     return Chat(
-      url: json['url'],
-      sender: User.fromJson(json['sender']),
-      receiver: Receiver.fromJson(json['receiver']),
-      message: json['message'],
-      createdAt: json['created_at'],
+      url: json['url'] ?? '',
+      sender: User.fromJson(json['between']['sender'] ?? {}),
+      receiver: Receiver.fromJson(json['between']['receiver'] ?? {}),
+      message: json['message'] ?? '',
+      createdAt: json['created_at'] ?? DateTime.now().toIso8601String(),
     );
   }
 
@@ -85,8 +85,8 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
       email: json['email'],
       dateOfBirth: json['date_of_birth'],
       phone: json['phone'],
@@ -137,8 +137,8 @@ class Receiver {
 
   factory Receiver.fromJson(Map<String, dynamic> json) {
     return Receiver(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
       familyName: json['family_name'],
       email: json['email'],
       phone: json['phone'],
