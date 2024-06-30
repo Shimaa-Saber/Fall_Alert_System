@@ -4,7 +4,6 @@ class EndPoints {
   static String signUp = "caregivers/register";
   static String forgetPassword = "caregivers/forgot-password";
   static String resetFrogetPassword = "user/reset-forgot-password";
-
   static String resendOtpForSignUp = 'user/resend-otp';
   static String activateUser = 'user/activate-user';
   static String resetForgetPAsswordForOtp = 'user/reset-forgot-password';
@@ -12,15 +11,14 @@ class EndPoints {
   static String getGender = 'gender';
   static String getCountry = 'location/countries';
   static String getStates = 'location/states';
-  static String getPatientProfile = 'patients/11';
+  static String getPatientProfile='patients/11';
 
   static String homeScreen = "falls?deep=true";
   static String verifyUserAccount = 'caregivers/verify-email';
   static String resendCode = "caregivers/resend-code";
   static String resetPassword = "caregivers/reset-password";
-  static String logout = 'auth/logout';
-  static String chats = 'me/chats';
-  static String updateProfile = 'caregivers/me?_method=PATCH';
+  static String logout='auth/logout';
+  static String chats='me/chats';
   //static String forgetPassword="caregivers/forgot-password";
 
   //caregivers/resend-code
