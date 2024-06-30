@@ -107,25 +107,6 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // Future<String> getDeviceName()async{
   //   Map deviceInfo = (await DeviceInfoPlugin().deviceInfo).data;
   //
@@ -134,9 +115,3 @@ class AuthCubit extends Cubit<AuthStates> {
   //
   //   return name ?? '$name $model';
   // }
-
-
-
-
-
-

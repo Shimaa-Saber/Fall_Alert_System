@@ -13,7 +13,7 @@ import '../Manger/Cubits/AuthCubit/Auth_Cubit.dart';
 import '../widgets/otp_verification_widget.dart';
 
 class ResetpasswordCode extends StatelessWidget {
-  const ResetpasswordCode({Key? key}) : super(key: key);
+  const ResetpasswordCode({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +25,20 @@ class ResetpasswordCode extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.blue,
-                content: Text(state.message,style: TextStyle(color: Colors.white))),
+              content: Text(
+                state.message,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
           );
         } else if (state is OTPResendFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: Colors.blue,
-                content: Text('Error: ${state.error}',style: TextStyle(color: Colors.white))),
+                backgroundColor: Colors.blue,
+                content: Text('Error: ${state.error}',
+                    style: const TextStyle(color: Colors.white))),
           );
         }
-
       },
       builder: (context, state) {
         return Scaffold(
@@ -92,7 +96,7 @@ class ResetpasswordCode extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Didn\'t receive the code?',
                             style: TextStyle(
                               fontSize: 13,
@@ -102,10 +106,15 @@ class ResetpasswordCode extends StatelessWidget {
                           ),
                           // verticalSpace(10),
                           InkWell(
-                            onTap: (){
-                              context.read<ActivateUserCubit>().resendOTP(context.read<ActivateUserCubit>().resetPasswordemail.text,'reset-password');
+                            onTap: () {
+                              context.read<ActivateUserCubit>().resendOTP(
+                                  context
+                                      .read<ActivateUserCubit>()
+                                      .resetPasswordemail
+                                      .text,
+                                  'reset-password');
                             },
-                            child: Text(
+                            child: const Text(
                               '  Resend Code',
                               style: TextStyle(
                                 fontSize: 13,
@@ -122,7 +131,10 @@ class ResetpasswordCode extends StatelessWidget {
                       title: 'Contanue',
                       tap: () {
                         activateCubit.activateUser(
-                          context.read<ActivateUserCubit>().resetPasswordemail.text,
+                          context
+                              .read<ActivateUserCubit>()
+                              .resetPasswordemail
+                              .text,
                         );
                         Navigator.pushNamed(context, Routes.resetPassword);
                       },
@@ -136,6 +148,4 @@ class ResetpasswordCode extends StatelessWidget {
       },
     );
   }
-  }
-
-
+}

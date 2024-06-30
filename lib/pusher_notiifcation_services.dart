@@ -62,7 +62,7 @@ class PusherService {
     );
     await flutterLocalNotificationsPlugin.show(
       0,
-      'New Notification',
+      'Fall Alert System',
       message,
       platformChannelSpecifics,
       payload: 'item x',
