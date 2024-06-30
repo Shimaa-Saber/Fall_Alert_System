@@ -3,6 +3,7 @@ import 'package:fall_detection/feature/patient/data/model/PatientModel.dart';
 abstract class PatientState{}
 
 class PatientLoading extends PatientState{}
+class PatientInitialstate extends PatientState{}
 class PatientSucess extends PatientState{
   final  PatientModel patient;
 
