@@ -125,12 +125,12 @@ class DioConsumer extends ApiConsumer {
     try {
       final response = await dio.post(
         path,
-        data: isFormData ? FormData.fromMap(data) : data,
+        data: isFormData ? data as FormData : data,
         queryParameters: queryParameters,
         options: Options(
           headers: {
             'Accept': 'application/json',
-            //'Content-Type': 'application/json',
+            'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
             'Authorization': 'Bearer ${CacheHelper().getData(key: ApiKey.token)}',
           },
         ),
@@ -140,7 +140,6 @@ class DioConsumer extends ApiConsumer {
       handleDioExceptions(e);
     }
   }
-
 
 
 

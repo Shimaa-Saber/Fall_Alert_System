@@ -29,18 +29,17 @@ UserModel? user;
 
 
 
-  Future<void> updateProfile({ XFile? photo}) async {
+  Future<void> updateProfile({XFile? photo}) async {
     emit(ProfileUpdating());
 
     FormData formData = FormData.fromMap({
-      ApiKey.name : nameController.text,
+      ApiKey.name: nameController.text,
       ApiKey.gender: genderController.text,
-     ApiKey.phone: phoneController.text
+      ApiKey.phone: phoneController.text,
     });
 
     if (photo != null) {
       String fileName = photo.path.split('/').last;
-
       formData.files.add(MapEntry(
         'photo',
         await MultipartFile.fromFile(photo.path, filename: fileName),
@@ -49,18 +48,18 @@ UserModel? user;
 
     try {
       final response = await api.updateProfile(
-        EndPoints.updateProfile,
-        data: formData,
+          EndPoints.updateProfile,
+          data: formData,
           isFormData: true,
-        queryParameters: {
-          '_method': 'PATCH'
-        }
+          queryParameters: {
+            '_method': 'PATCH'
+          }
       );
 
-      final profileResponse = ProfileResponse.fromJson(response.data);
+      final profileResponse = ProfileResponse.fromJson(response);
       emit(ProfileUpdated(profileResponse.data));
     } on ServerException catch (error) {
-      emit(ProfileUpdateError(error:error.errModel.message??"un expexted error"));
+      emit(ProfileUpdateError(error: error.errModel.message ?? "Unexpected error"));
     }
   }
 }
