@@ -4,6 +4,7 @@ import 'package:fall_detection/core/services/network/api/dio_consumer.dart';
 import 'package:fall_detection/core/services/network/error/exceptions.dart';
 import 'package:fall_detection/feature/home/data/models/home_screen_model.dart';
 import 'package:fall_detection/feature/messages/Models/MessagesModel/MessagesModel.dart';
+import 'package:fall_detection/feature/notification/data/model/NotificationModel.dart';
 import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCubit/UserStates.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,6 +35,19 @@ class AppCubit extends Cubit<AppState> {
       final response = await api.get(EndPoints.chats);
       final chatResponse = ChatResponse.fromJson(response);
       emit(AppLoadedSuccess(chatResponse));
+    } on ServerException catch (error) {
+      emit(AppFailerState(errorMessage: error.errModel.message!));
+    }
+  }
+
+  Notification? notifications;
+
+  Future<void> fetchNotifications() async {
+    emit(AppLoadingState());
+    try {
+      final response = await api.get(EndPoints.getAllNotifications);
+      final notificationsResponse = NotificationsModel.fromJson(response);
+      emit(AppLoadedSuccess2(notificationsResponse));
     } on ServerException catch (error) {
       emit(AppFailerState(errorMessage: error.errModel.message!));
     }

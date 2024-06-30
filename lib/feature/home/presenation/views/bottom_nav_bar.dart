@@ -118,9 +118,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       // case 0:
       //   await _callBackend('homeEndpoint');
       //   break;
-      // case 1:
-      //   await _callBackend('notificationsEndpoint');
-      //   break;
+      case 1:
+        await appCubit.fetchNotifications();
+        break;
       case 2:
         await appCubit.getUserProfile();
         break;

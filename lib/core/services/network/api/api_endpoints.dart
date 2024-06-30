@@ -19,6 +19,7 @@ class EndPoints {
   static String logout = 'auth/logout';
   static String chats = 'me/chats';
   static String updateProfile = 'caregivers/me';
+  static String getAllNotifications = 'notifications';
 
   //static String forgetPassword="caregivers/forgot-password";
 

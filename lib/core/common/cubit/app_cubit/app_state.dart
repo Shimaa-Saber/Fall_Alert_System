@@ -1,4 +1,5 @@
 import 'package:fall_detection/feature/messages/Models/MessagesModel/MessagesModel.dart';
+import 'package:fall_detection/feature/notification/data/model/NotificationModel.dart';
 import 'package:fall_detection/feature/profile/data/Models/UserModel.dart';
 
 abstract class AppState {}
@@ -15,6 +16,11 @@ class AppSuccessState extends AppState {
 
 class AppLoadedSuccess extends AppState {
   AppLoadedSuccess(ChatResponse chatResponse);
+}
+
+class AppLoadedSuccess2 extends AppState {
+  AppLoadedSuccess2(NotificationsModel notificationsResponse);
+  
 }
 
 class AppFailerState extends AppState {
