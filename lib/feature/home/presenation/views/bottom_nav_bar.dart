@@ -1,3 +1,5 @@
+import 'package:fall_detection/core/common/cubit/app_cubit/app_cubit.dart';
+import 'package:fall_detection/core/common/cubit/app_cubit/app_state.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/feature/messages/presentation/view/chat_view.dart';
 import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCubit/UserCupit.dart';
@@ -29,13 +31,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    final userCubit = BlocProvider.of<UserCubit>(context);
+    final appCubit = BlocProvider.of<AppCubit>(context);
     // final chatCubit = BlocProvider.of<ChatCubit>(context);
-    return BlocConsumer<UserCubit, UserState>(
+    return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
         if (state is Userfailer) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
+            const SnackBar(
+              content: Text(
+                // state.errorMessage,
+                'Failure',
+              ),
+            ),
           );
         }
       },
@@ -66,7 +73,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 setState(() {
                   currentIndex = index;
                 });
-                await _onItemTapped(index, userCubit);
+                await _onItemTapped(index, appCubit);
               },
               type: BottomNavigationBarType.fixed,
               items: const <BottomNavigationBarItem>[
@@ -106,7 +113,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 
-  Future<void> _onItemTapped(int index, UserCubit userCubit) async {
+  Future<void> _onItemTapped(int index, AppCubit appCubit) async {
     switch (index) {
       // case 0:
       //   await _callBackend('homeEndpoint');
@@ -115,11 +122,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
       //   await _callBackend('notificationsEndpoint');
       //   break;
       case 2:
-        await userCubit.getUserProfile();
+        await appCubit.getUserProfile();
         break;
-      // case 3:
-      //   await userCubit.fetchChats();
-      //   break;
+      case 3:
+        await appCubit.fetchChats();
+        break;
     }
 
     // setState(() {

@@ -25,20 +25,7 @@ UserModel? user;
   TextEditingController genderController=TextEditingController();
   TextEditingController phoneController=TextEditingController();
 
-  getUserProfile( ) async {
-    try {
-      emit(UserLoading());
-      final bool deep=true;
-      final response = await api.get(
-          EndPoints.getUserProfile,
-          queryParameters: {
-            'deep': deep
-          });
-      emit(UserSuccess(user: UserModel.fromJson(response)));
-    } on ServerException catch (e) {
-      emit(Userfailer(errorMessage: e.errModel.message!));
-    }
-  }
+  
 
 
 
