@@ -12,14 +12,19 @@ import 'package:image_picker/image_picker.dart';
 
 import '../widgets/edit_profile_column.dart';
 
-class EditProfileDialge extends StatelessWidget {
+class EditProfileDialge extends StatefulWidget {
    EditProfileDialge({
     super.key,
   });
 
-   final ImagePicker _picker = ImagePicker();
-   XFile? _selectedImage;
+  @override
+  State<EditProfileDialge> createState() => _EditProfileDialgeState();
+}
 
+class _EditProfileDialgeState extends State<EditProfileDialge> {
+   final ImagePicker _picker = ImagePicker();
+
+   XFile? _selectedImage;
 
    void _pickImage(ImageSource source) async {
      final pickedFile = await _picker.pickImage(source: source);

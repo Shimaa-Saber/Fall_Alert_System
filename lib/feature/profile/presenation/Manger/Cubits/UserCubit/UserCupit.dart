@@ -64,6 +64,7 @@ UserModel? user;
       final response = await api.updateProfile(
         EndPoints.updateProfile,
         data: formData,
+          isFormData: true,
         queryParameters: {
           '_method': 'PATCH'
         }

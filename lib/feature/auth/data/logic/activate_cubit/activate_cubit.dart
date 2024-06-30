@@ -102,7 +102,6 @@ class ActivateUserCubit extends Cubit<ActivateUserState> {
 
   Future<void> resetPasswordFun() async {
 
-
     try {
       emit(ResetPasswordLoading());
       final otp = otpControllers.map((controller) => controller.text).join();
