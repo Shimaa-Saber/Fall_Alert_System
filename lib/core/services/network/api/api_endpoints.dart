@@ -46,6 +46,8 @@ class ApiKey {
   static String rating = "rating";
   static String otp = "otp";
   static String type = "type";
+  static String homeid = "id";
+  static String homeUserId = "user_id";
 
   static String device_name = "device_name";
 }
