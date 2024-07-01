@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                             onTap: () {
                               Navigator.pushNamed(context,Routes.patientScreen);
                               var getPatientProfile= BlocProvider.of<PatientCubit>(context);
-                              getPatientProfile.getPatientProfile();// Navigate to patient view page
+                              getPatientProfile.getPatientProfile();
                             },
                             child: PatientCard(
                               patientImage: alert.user.photo,

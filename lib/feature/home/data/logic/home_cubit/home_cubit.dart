@@ -5,6 +5,8 @@ import '../../../../../core/services/network/api/api_endpoints.dart';
 import 'package:fall_detection/feature/home/data/models/home_screen_model.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../../core/services/shared_prefrences/shared_pref.dart';
+
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.dio) : super(HomeInitialState());
   final DioConsumer dio;
@@ -29,6 +31,8 @@ class HomeCubit extends Cubit<HomeState> {
           if (data is List) {
             List<HomeScreenModel> alerts =
                 data.map((item) => HomeScreenModel.fromJson(item)).toList();
+            CacheHelper().saveData(key: ApiKey.homeid, value: homeScreenModel!.id);
+            CacheHelper().saveData(key: ApiKey.homeUserId, value: homeScreenModel!.userId);
             emit(HomeLoaded(alerts));
           } else {
             emit(const HomeErrorState(

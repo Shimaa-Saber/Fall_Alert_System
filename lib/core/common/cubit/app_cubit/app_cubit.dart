@@ -34,7 +34,7 @@ class AppCubit extends Cubit<AppState> {
     try {
       final response = await api.get(EndPoints.chats);
       final chatResponse = ChatResponse.fromJson(response);
-      emit(AppLoadedSuccess(chatResponse));
+      emit(AppLoadedSuccess(chatResponse: chatResponse));
     } on ServerException catch (error) {
       emit(AppFailerState(errorMessage: error.errModel.message!));
     }
