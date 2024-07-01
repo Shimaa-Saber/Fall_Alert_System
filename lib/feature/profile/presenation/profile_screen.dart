@@ -18,22 +18,23 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppState>(
+    return BlocConsumer<UserCubit,UserState>(
       listener: (context, state) {
-        if(state is AppFailerState){
+        if(state is Userfailer){
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.errorMessage,style: TextStyle(color: Colors.white),),
+              content: Text(
+                state.errorMessage,
+                style: const TextStyle(color: Colors.white),
+              ),
               backgroundColor: AppColors.primaryColor,
             ),
           );
         }
-
       },
-
       builder: (context, state) {
         return Scaffold(
-          body: state is AppLoadingState?Center(child: const CircularProgressIndicator(),):state is AppSuccessState?
+          body: state is UserLoading?Center(child: const CircularProgressIndicator(),):state is UserSuccess?
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -158,7 +159,6 @@ class ProfileScreen extends StatelessWidget {
           ):Container(),
         );
       },
-
     );
   }
 }

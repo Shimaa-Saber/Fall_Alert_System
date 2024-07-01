@@ -129,8 +129,5 @@ class _BottomNavBarState extends State<BottomNavBar> {
         break;
     }
 
-    // setState(() {
-    //   currentIndex = index;
-    // });
   }
 }

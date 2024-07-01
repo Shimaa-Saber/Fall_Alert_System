@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({Key? key});
+  const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +74,12 @@ class NotificationScreen extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: NotificationContainerInfo(
-                            icon: Icons.phone, // Example icon, replace with actual data
-                            content:'${ notification.data.content}', // Corrected line
-                            min: '${notification.createdAt}',
-                            image: '${AppAssetsImages.fallingImage}',
+                            icon: Icons
+                                .phone, // Example icon, replace with actual data
+                            content:
+                                notification.data.content, // Corrected line
+                            min: notification.createdAt,
+                            image: AppAssetsImages.fallingImage,
                           ),
                         );
                       },

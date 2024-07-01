@@ -54,9 +54,11 @@ class _MapScreenState extends State<MapScreen> {
               controller: controller,
               onGeoPointClicked: (p0) {
                 print(p0);
+                // addMarkers(state.alerts);
               },
               onLocationChanged: (p0) {
                 print(p0);
+                // addMarkers(state.alerts);
               },
               onMapIsReady: (p0) {
                 print(p0);
@@ -73,7 +75,6 @@ class _MapScreenState extends State<MapScreen> {
       ),
     );
   }
-
   Future<void> addMarkers(List<HomeScreenModel> homeScreenModels) async {
     for (var person in homeScreenModels) {
       try {
