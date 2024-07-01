@@ -14,6 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/routes/routes.dart';
+import '../../../../core/services/network/api/api_endpoints.dart';
+import '../../../../core/services/shared_prefrences/shared_pref.dart';
 
 class MessageView extends StatelessWidget {
   const MessageView({super.key});
@@ -76,6 +78,8 @@ class MessageView extends StatelessWidget {
                       itemCount: Chats.length,
                       itemBuilder: (context, index) {
                         final chat =Chats[index];
+                        CacheHelper().saveData(key: ApiKey.senderId, value: chat.sender.id);
+                        CacheHelper().saveData(key: ApiKey.reciverId, value: chat.receiver.id);
                         return GestureDetector(
                           onTap: (){
                             Navigator.pushNamed(context, Routes.ChatView);
