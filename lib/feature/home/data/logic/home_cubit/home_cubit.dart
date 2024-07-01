@@ -31,8 +31,10 @@ class HomeCubit extends Cubit<HomeState> {
           if (data is List) {
             List<HomeScreenModel> alerts =
                 data.map((item) => HomeScreenModel.fromJson(item)).toList();
-            CacheHelper().saveData(key: ApiKey.homeid, value: homeScreenModel!.id);
-            CacheHelper().saveData(key: ApiKey.homeUserId, value: homeScreenModel!.userId);
+            CacheHelper()
+                .saveData(key: ApiKey.homeid, value: homeScreenModel?.id);
+            CacheHelper().saveData(
+                key: ApiKey.homeUserId, value: homeScreenModel?.userId);
             emit(HomeLoaded(alerts));
           } else {
             emit(const HomeErrorState(

@@ -191,6 +191,7 @@
 // }
 
 import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
+import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 import 'package:fall_detection/feature/ChatScreen/presentation/widget/chattingbuble.dart';
 import 'package:fall_detection/feature/ChatScreen/presentation/widget/recevingchatbuble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -218,12 +219,12 @@ class _ChatViewState extends State<ChatView> {
   @override
   void initState() {
     super.initState();
-    _pusherService.subscribeToChannel('chat', (dynamic data) {
+    _pusherService.subscribeToChannel('chat-channel', (dynamic data) {
       final message = json.decode(data);
       setState(() {
         _messages.add({
-          'message': message['message']!,
-          'sender': message['sender']!,
+          'message': message['message'],
+          'sender': message['sender'],
         });
       });
     });
@@ -236,7 +237,7 @@ class _ChatViewState extends State<ChatView> {
   }
 
 //, String token
-  Future<void> _sendMessage(String message) async {
+  Future<void> _sendMessage(String message, String token) async {
     try {
       final response = await _dio.post(
         "https://fallyguardapi.me/api/v1/chat/31",
@@ -246,8 +247,7 @@ class _ChatViewState extends State<ChatView> {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'Authorization':
-                'Bearer 155|ORTuDtVAGtoDMfj7MCPm7pvRCvyVnxO82MSKojBu786f49e2',
+            'Authorization': 'Bearer $token',
             'Accept': 'application/json',
           },
         ),
@@ -361,11 +361,22 @@ class _ChatViewState extends State<ChatView> {
                     onPressed: () {
                       final message = _controller.text;
                       if (message.isNotEmpty) {
-                        _sendMessage(message
-                            // CacheHelper.sharedPreferences
-                            //         .getString(ApiKey.token) ??
-                            //     '',
-                            );
+                        _sendMessage(
+                          message,
+                          CacheHelper.sharedPreferences
+                                  .getString(ApiKey.token) ??
+                              '',
+                          // CacheHelper.sharedPreferences.getInt(
+                          //       ApiKey.homeUserId,
+                          //     ) ??
+                          //     0,
+                          // CacheHelper.sharedPreferences.getInt(ApiKey.userId) ??
+                          //   '',
+
+                          // CacheHelper.sharedPreferences
+                          //         .getString(ApiKey.token) ??
+                          //     '',
+                        );
                         _controller.clear();
                       }
                     },

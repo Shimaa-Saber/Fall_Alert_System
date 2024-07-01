@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                     verticalSpace(20),
                     ListViewPatient(
                       itemCount: state.alerts.length,
-                      imagePatient: state.alerts[0].user.name,
+                      imagePatient: state.alerts[0].user.photo,
                       patientName: state.alerts[0].user.name,
                     ),
                     SizedBox(
@@ -82,16 +82,17 @@ class HomeScreen extends StatelessWidget {
                           final alert = state.alerts[index];
                           return GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context,Routes.patientScreen);
-                              var getPatientProfile= BlocProvider.of<PatientCubit>(context);
+                              Navigator.pushNamed(
+                                  context, Routes.patientScreen);
+                              var getPatientProfile =
+                                  BlocProvider.of<PatientCubit>(context);
                               getPatientProfile.getPatientProfile();
                             },
                             child: PatientCard(
                               patientImage: alert.user.photo,
                               patientName: alert.user.name,
                               date: alert.createdAt,
-                              patientLocationImage:
-                                  AppAssetsImages.onboardingImage,
+                              patientLocationImage: alert.location,
                             ),
                           );
                         },
