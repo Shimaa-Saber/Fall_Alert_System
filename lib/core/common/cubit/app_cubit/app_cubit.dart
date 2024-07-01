@@ -9,6 +9,7 @@ import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCub
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../feature/profile/data/Models/UserModel.dart';
+import '../../../services/shared_prefrences/shared_pref.dart';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit(this.api) : super(AppInitialstate());
@@ -28,12 +29,14 @@ class AppCubit extends Cubit<AppState> {
 
   Chat? chats;
 
+
   Future<void> fetchChats() async {
     emit(AppLoadingState());
 
     try {
       final response = await api.get(EndPoints.chats);
       final chatResponse = ChatResponse.fromJson(response);
+
       emit(AppLoadedSuccess(chatResponse: chatResponse));
     } on ServerException catch (error) {
       emit(AppFailerState(errorMessage: error.errModel.message!));

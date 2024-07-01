@@ -48,6 +48,8 @@ class ApiKey {
   static String type = "type";
   static String homeid = "id";
   static String homeUserId = "user_id";
+  static String senderId='id';
+  static String reciverId='id';
 
   static String device_name = "device_name";
 }
