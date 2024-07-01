@@ -191,7 +191,6 @@
 // }
 
 import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
-import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 import 'package:fall_detection/feature/ChatScreen/presentation/widget/chattingbuble.dart';
 import 'package:fall_detection/feature/ChatScreen/presentation/widget/recevingchatbuble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -219,7 +218,7 @@ class _ChatViewState extends State<ChatView> {
   @override
   void initState() {
     super.initState();
-    _pusherService.subscribeToChannel('private-chat.1.4', (dynamic data) {
+    _pusherService.subscribeToChannel('chat', (dynamic data) {
       final message = json.decode(data);
       setState(() {
         _messages.add({
@@ -240,7 +239,7 @@ class _ChatViewState extends State<ChatView> {
   Future<void> _sendMessage(String message) async {
     try {
       final response = await _dio.post(
-        "https://fallyguardapi.me/api/v1/chat/30",
+        "https://fallyguardapi.me/api/v1/chat/31",
         data: {
           'message': message,
         },
@@ -248,7 +247,7 @@ class _ChatViewState extends State<ChatView> {
           headers: {
             'Content-Type': 'application/json',
             'Authorization':
-                'Bearer 50|qRWSH0xav2tUnxeN9KyXOyPmGNEepkWOtUBlP5BU29174048',
+                'Bearer 155|ORTuDtVAGtoDMfj7MCPm7pvRCvyVnxO82MSKojBu786f49e2',
             'Accept': 'application/json',
           },
         ),
