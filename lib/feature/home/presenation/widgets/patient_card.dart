@@ -1,4 +1,3 @@
-import 'package:fall_detection/core/routes/routes.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +32,7 @@ class PatientCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector( // Wrap with GestureDetector for navigation
-      onTap: () {
-        Navigator.pushNamed(context, Routes.patientScreen); // Navigate to patient view page
-      },
-   // return InkWell(
-  //    onTap: () {},
-      child: Padding(
+    return  Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: SizedBox(
           height: 340.h,
@@ -126,7 +119,7 @@ class PatientCard extends StatelessWidget {
             ),
           ),
         ),
-      ),
+
     );
   }
 }

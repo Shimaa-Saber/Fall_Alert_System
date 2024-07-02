@@ -1,14 +1,11 @@
-import 'package:fall_detection/core/routes/routes.dart';
 import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
 import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
-import 'package:fall_detection/core/styles/images/assets.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
 import 'package:fall_detection/feature/home/data/logic/home_cubit/home_cubit.dart';
 import 'package:fall_detection/feature/home/data/logic/home_cubit/home_state.dart';
 import 'package:fall_detection/feature/home/presenation/widgets/drawer_widget.dart';
 import 'package:fall_detection/feature/home/presenation/widgets/list_view_patient.dart';
-import 'package:fall_detection/feature/patient/presentation/manger/PatientCubits/PatientCubits.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,22 +77,12 @@ class HomeScreen extends StatelessWidget {
                         itemCount: state.alerts.length,
                         itemBuilder: (context, index) {
                           final alert = state.alerts[index];
-                          return GestureDetector(
-                            onTap: () {
-
-                            context.read<PatientCubit>().fetchPatientData();
-                            Navigator.pushNamed(
-                                context, Routes.patientScreen);
-                          },
-
-
-
-                            child: PatientCard(
+                          return  PatientCard(
                               patientImage: alert.user.photo,
                               patientName: alert.user.name,
                               date: alert.createdAt,
                               patientLocationImage: alert.location,
-                            ),
+
                           );
                         },
                       ),
