@@ -20,6 +20,7 @@ class EndPoints {
   static String chats = 'me/chats';
   static String updateProfile = 'caregivers/me';
   static String getAllNotifications = 'notifications';
+  static String getMessagesofOtheruser='chat';
 
   //static String forgetPassword="caregivers/forgot-password";
 
