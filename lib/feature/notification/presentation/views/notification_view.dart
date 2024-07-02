@@ -1,8 +1,6 @@
 import 'package:fall_detection/core/common/cubit/app_cubit/app_cubit.dart';
 import 'package:fall_detection/core/common/cubit/app_cubit/app_state.dart';
 import 'package:fall_detection/core/styles/images/assets.dart';
-import 'package:fall_detection/feature/notification/presentation/manger/cubits/notificationsCubit.dart';
-import 'package:fall_detection/feature/notification/presentation/manger/cubits/notificationsStates.dart';
 import 'package:fall_detection/feature/notification/presentation/widget/notification_card_info.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/core/utils/spacing.dart';
@@ -32,6 +30,24 @@ class NotificationScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state is AppLoadedSuccess2) {
           final notifications = state.notifications.notifications;
+
+          // Debug: Print notifications list length and contents
+          print('Notifications count: ${notifications.length}');
+          print(
+              'Notifications data: ${notifications.map((e) => e.data.content).toList()}');
+
+          if (notifications.isEmpty) {
+            return Scaffold(
+              backgroundColor: AppColors.primaryColor,
+              body: Center(
+                child: Text(
+                  'No notifications available',
+                  style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                ),
+              ),
+            );
+          }
+
           return Scaffold(
             backgroundColor: AppColors.primaryColor,
             body: Column(
@@ -47,7 +63,7 @@ class NotificationScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          // Handle tap on back button
+                          Navigator.pop(context);
                         },
                         child: const Icon(
                           Icons.arrow_back,
@@ -73,14 +89,18 @@ class NotificationScreen extends StatelessWidget {
                       itemCount: notifications.length,
                       itemBuilder: (context, index) {
                         final notification = notifications[index];
+
+                        // Debug: Print notification data
+                        print(
+                            'Notification content: ${notification.data.content}');
+
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: NotificationContainerInfo(
-                            icon: Icons
-                                .phone, // Example icon, replace with actual data
-                            content:
-                                notification.data.content, // Corrected line
-                            min: notification.createdAt,
+                            icon: Icons.phone,
+                            content: notification.data.content ?? '',
+                            min: notification.createdAt ??
+                                DateTime.now().toIso8601String(),
                             image: AppAssetsImages.fallingImage,
                           ),
                         );
@@ -92,7 +112,7 @@ class NotificationScreen extends StatelessWidget {
             ),
           );
         } else {
-          return const Center(child: Text('unexpected state'));
+          return const Center(child: Text('Unexpected state'));
         }
       },
     );

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:fall_detection/core/common/cubit/app_cubit/app_cubit.dart';
 import 'package:fall_detection/core/routes/app_route.dart';
 import 'package:fall_detection/core/routes/routes.dart';
+import 'package:fall_detection/feature/ChatScreen/presentation/manger/cubit/chatmsgcubit.dart';
 import 'package:fall_detection/feature/ChatScreen/presentation/view/chattingview.dart';
 import 'package:fall_detection/feature/auth/presentation/Manger/Cubits/AuthCubit/Auth_Cubit.dart';
 import 'package:fall_detection/feature/auth/presentation/views/activate_user_screen.dart';
@@ -73,6 +74,9 @@ class _FallDetectionAppState extends State<FallDetectionApp> {
         ),
         BlocProvider<NotificationsCubit>(
           create: (context) => NotificationsCubit(DioConsumer(dio: Dio())),
+        ),
+        BlocProvider<ChatmsgCubit>(
+          create: (context) => ChatmsgCubit(DioConsumer(dio: Dio())),
         ),
       ],
       child: ScreenUtilInit(

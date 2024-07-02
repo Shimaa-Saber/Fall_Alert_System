@@ -1,8 +1,7 @@
 import 'package:fall_detection/core/common/cubit/app_cubit/app_cubit.dart';
 import 'package:fall_detection/core/common/cubit/app_cubit/app_state.dart';
 import 'package:fall_detection/core/styles/images/assets.dart';
-import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesCubit.dart';
-import 'package:fall_detection/feature/messages/presentation/Manger/Cubits/MessagesCubit/MessagesStates.dart';
+
 import 'package:fall_detection/feature/messages/presentation/widget/message_container_info.dart';
 import 'package:fall_detection/feature/messages/presentation/widget/message_text_widget.dart';
 
@@ -22,22 +21,22 @@ class MessageView extends StatelessWidget {
   // static String id = 'notification_view';
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppState>(
+    return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
         if (state is AppFailerState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: Colors.blue,
+                backgroundColor: Colors.blue,
                 content: Text(state.errorMessage)),
           );
         }
       },
       builder: (context, state) {
-        if (state is AppLoadingState){
-          return Center(child: const CircularProgressIndicator());
-        }else if (state is AppLoadedSuccess){
-          final Chats=state.chatResponse.chats;
-          return  Scaffold(
+        if (state is AppLoadingState) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is AppLoadedSuccess) {
+          final Chats = state.chatResponse.chats;
+          return Scaffold(
             backgroundColor: AppColors.primaryColor,
             body: SingleChildScrollView(
               child: Column(
@@ -77,20 +76,24 @@ class MessageView extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: Chats.length,
                       itemBuilder: (context, index) {
-                        final chat =Chats[index];
-                        CacheHelper().saveData(key: ApiKey.senderId, value: chat.sender.id);
-                        CacheHelper().saveData(key: ApiKey.reciverId, value: chat.receiver.id);
+                        final chat = Chats[index];
+                        CacheHelper().saveData(
+                            key: ApiKey.senderId, value: chat.sender.id);
+                        CacheHelper().saveData(
+                            key: ApiKey.reciverId, value: chat.receiver.id);
                         return GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             Navigator.pushNamed(context, Routes.ChatView);
                           },
-                          child:  Padding(
-                              padding: EdgeInsets.all(8.0),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: MessageContainerInfo(
-                                image: chat.sender.photo ?? AppAssetsImages.fallingImage,
+                                image: chat.sender.photo ??
+                                    AppAssetsImages.fallingImage,
                                 title: chat.sender.name ?? 'Unknown Sender',
                                 text: chat.message ?? 'No message',
-                                min: chat.createdAt ?? DateTime.now().toIso8601String(),
+                                min: chat.createdAt ??
+                                    DateTime.now().toIso8601String(),
                               )),
                         );
                       },
@@ -100,13 +103,10 @@ class MessageView extends StatelessWidget {
               ),
             ),
           );
-        }else {
-          return Center(child:Text('unexpexted state'));
+        } else {
+          return const Center(child: Text('unexpexted state'));
         }
-
-
       },
-
     );
   }
 }

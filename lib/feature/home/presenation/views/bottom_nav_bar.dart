@@ -1,5 +1,7 @@
 import 'package:fall_detection/core/common/cubit/app_cubit/app_cubit.dart';
 import 'package:fall_detection/core/common/cubit/app_cubit/app_state.dart';
+import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
+import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 import 'package:fall_detection/core/styles/colors/colors.dart';
 import 'package:fall_detection/feature/messages/presentation/view/chat_view.dart';
 import 'package:fall_detection/feature/profile/presenation/Manger/Cubits/UserCubit/UserCupit.dart';
@@ -119,7 +121,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
       //   await _callBackend('homeEndpoint');
       //   break;
       case 1:
-        await appCubit.fetchNotifications();
+        await appCubit.fetchNotifications(
+            // CacheHelper().saveData(key: , value: value)
+            //CacheHelper.sharedPreferences.getString(ApiKey.token) ?? '',
+            );
         break;
       case 2:
         await appCubit.getUserProfile();
@@ -128,6 +133,5 @@ class _BottomNavBarState extends State<BottomNavBar> {
         await appCubit.fetchChats();
         break;
     }
-
   }
 }
