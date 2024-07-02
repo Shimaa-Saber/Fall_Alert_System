@@ -1,7 +1,7 @@
 import 'package:fall_detection/core/extensions/context_extension.dart';
 import 'package:fall_detection/feature/patient/presentation/manger/PatientCubits/PatientCubits.dart';
 import 'package:fall_detection/feature/patient/presentation/manger/PatientCubits/PatientStates.dart';
-import 'package:fall_detection/feature/patient/presentation/views/widgets/patiant_list_item.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,11 +19,11 @@ class PatientScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<PatientCubit, PatientState>(
       listener: (context, state) {
-        if (state is PatientFailer) {
+        if (state is PatientError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                state.errorMessage,
+                state.message,
                 style: TextStyle(color: Colors.white),
               ),
               backgroundColor: AppColors.primaryColor,
@@ -35,7 +35,7 @@ class PatientScreen extends StatelessWidget {
         return Scaffold(
           body: state is PatientLoading
               ? Center(child: const CircularProgressIndicator())
-              : state is PatientSucess
+              : state is PatientLoaded
               ? Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -93,7 +93,7 @@ class PatientScreen extends StatelessWidget {
                                 verticalSpace(48),
                                 RowInfoWidget(
                                   icon: Icons.male,
-                                  text: state.patient.gender,
+                                  text: state.patient.name,
                                 ),
                                 verticalSpace(16),
                                 RowInfoWidget(
@@ -108,7 +108,7 @@ class PatientScreen extends StatelessWidget {
                                 verticalSpace(16),
                                 RowInfoWidget(
                                   icon: Icons.warning_amber,
-                                  text: state.patient.emergency,
+                                  text: '01121010554',
                                 ),
                                 verticalSpace(25),
                                 Row(
@@ -122,7 +122,7 @@ class PatientScreen extends StatelessWidget {
                                     ),
                                     horizontalSpace(25),
                                     Text(
-                                      '${state.patient.contactList.length} contacts',
+                                      '${state.patient.contacts.length} contacts',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 15.sp,
@@ -141,16 +141,33 @@ class PatientScreen extends StatelessWidget {
                                   child: Container(
                                     height: context.height * 0.13,
                                     child: ListView.builder(
-                                      itemCount: state.patient.contactList.length,
+                                      itemCount: state.patient.contacts.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
+                                        final contact=state.patient.contacts[index];
                                         return Padding(
                                           padding: EdgeInsets.symmetric(horizontal: 3.w),
                                           child: GestureDetector(
                                             onTap: () {
                                               Navigator.pushNamed(context, Routes.ChatView);
                                             },
-                                            child: patiant_list_item(contact: state.patient.contactList[index]),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: context.height * 0.04,
+                                                  backgroundImage: AssetImage(
+                                                      'assets/images/patientfall.png'),
+                                                ),
+                                                verticalSpace(3),
+                                                Text(
+                                                  state.patient.name,
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: 14.sp),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         );
                                       },
@@ -179,7 +196,7 @@ class PatientScreen extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           radius: context.height * 0.15,
                           backgroundImage:
-                          NetworkImage(state.patient.photo),
+                          NetworkImage(state.patient.photo!),
                         ),
                       ),
                     ),

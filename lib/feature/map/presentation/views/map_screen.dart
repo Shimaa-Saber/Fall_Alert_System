@@ -1,11 +1,14 @@
 import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
 import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
+import 'package:fall_detection/feature/patient/presentation/manger/PatientCubits/PatientCubits.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fall_detection/feature/home/data/logic/home_cubit/home_cubit.dart';
 import 'package:fall_detection/feature/home/data/logic/home_cubit/home_state.dart';
 import 'package:fall_detection/feature/home/data/models/home_screen_model.dart';
+
+import '../../../../core/routes/routes.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -84,21 +87,15 @@ class _MapScreenState extends State<MapScreen> {
             longitude: person.longitude,
           ),
           markerIcon: MarkerIcon(
-            iconWidget: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        PatientProfileScreen(personId: person.id),
-                  ),
-                );
+            iconWidget:  IconButton(
+              onPressed: (){
+                context.read<PatientCubit>().fetchPatientData();
+                Navigator.pushNamed(context, Routes.patientScreen);
               },
-              child: const Icon(
-                Icons.location_on,
+              icon: Icon( Icons.location_on,
                 color: Colors.red,
-                size: 48,
-              ),
+                size: 48,),
+
             ),
           ),
         );
@@ -109,21 +106,3 @@ class _MapScreenState extends State<MapScreen> {
   }
 }
 
-class PatientProfileScreen extends StatelessWidget {
-  final int personId;
-
-  const PatientProfileScreen({super.key, required this.personId});
-
-  @override
-  Widget build(BuildContext context) {
-    // Fetch and display patient details using personId
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Patient Profile'),
-      ),
-      body: Center(
-        child: Text('Patient ID: $personId'),
-      ),
-    );
-  }
-}

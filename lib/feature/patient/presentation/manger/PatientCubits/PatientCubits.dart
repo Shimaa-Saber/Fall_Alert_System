@@ -4,25 +4,28 @@ import 'package:fall_detection/feature/patient/presentation/manger/PatientCubits
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/services/network/api/api_endpoints.dart';
 import '../../../../../../core/services/network/error/exceptions.dart';
+import '../../../../../core/services/shared_prefrences/shared_pref.dart';
 
 class PatientCubit extends Cubit<PatientState> {
 
-  PatientCubit( this.api) :super(PatientInitialstate());
+  PatientCubit( this.api) :super(PatientInitial());
   final ApiConsumer api;
 
-  PatientModel? patient;
-
-  getPatientProfile() async {
+  Future<void> fetchPatientData() async {
+    emit(PatientLoading());
     try {
-      emit(PatientLoading());
-      final bool deep = true;
       final response = await api.get(
-        EndPoints.getPatientProfile,
-        queryParameters: {'deep': deep},
+        '${EndPoints.baseUrl}patients/${CacheHelper().getData(key: ApiKey.homeUserId)}',
+        queryParameters: {'deep': true},
+        token: CacheHelper().getData(key: ApiKey.token),
       );
-      emit(PatientSucess(patient: PatientModel.fromJson(response)));
-    } on ServerException catch (e) {
-      emit(PatientFailer(errorMessage: e.errModel.message!));
+
+      if (response != null) {
+        final patient = User.fromJson(response);
+        emit(PatientLoaded(patient));
+      }
+    }on ServerException catch (e) {
+      emit(PatientError(e.toString()));
     }
   }
 }

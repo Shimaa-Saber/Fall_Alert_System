@@ -6,8 +6,11 @@ class NotificationsModel {
   });
 
   factory NotificationsModel.fromJson(Map<String, dynamic> json) {
+    var notificationsList = json['notifications'] as List<dynamic>? ?? [];
+    List<Notification> notifications = notificationsList.map((i) => Notification.fromJson(i)).toList();
+
     return NotificationsModel(
-      notifications: (json['notifications'] as List).map((i) => Notification.fromJson(i)).toList(),
+      notifications: notifications,
     );
   }
 

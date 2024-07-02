@@ -82,12 +82,14 @@ class HomeScreen extends StatelessWidget {
                           final alert = state.alerts[index];
                           return GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(
-                                  context, Routes.patientScreen);
-                              var getPatientProfile =
-                                  BlocProvider.of<PatientCubit>(context);
-                              getPatientProfile.getPatientProfile();
-                            },
+
+                            context.read<PatientCubit>().fetchPatientData();
+                            Navigator.pushNamed(
+                                context, Routes.patientScreen);
+                          },
+
+
+
                             child: PatientCard(
                               patientImage: alert.user.photo,
                               patientName: alert.user.name,

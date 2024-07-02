@@ -18,9 +18,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserCubit,UserState>(
+    return BlocConsumer<AppCubit,AppState>(
       listener: (context, state) {
-        if(state is Userfailer){
+        if(state is AppFailerState){
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          body: state is UserLoading?Center(child: const CircularProgressIndicator(),):state is UserSuccess?
+          body: state is AppLoadingState?Center(child: const CircularProgressIndicator(),):state is AppSuccessState?
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(

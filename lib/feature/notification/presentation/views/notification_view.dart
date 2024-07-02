@@ -1,3 +1,5 @@
+import 'package:fall_detection/core/common/cubit/app_cubit/app_cubit.dart';
+import 'package:fall_detection/core/common/cubit/app_cubit/app_state.dart';
 import 'package:fall_detection/core/styles/images/assets.dart';
 import 'package:fall_detection/feature/notification/presentation/manger/cubits/notificationsCubit.dart';
 import 'package:fall_detection/feature/notification/presentation/manger/cubits/notificationsStates.dart';
@@ -14,21 +16,21 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NotificationsCubit, Notificationsstates>(
+    return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
-        if (state is NotificationsFailer) {
+        if (state is AppFailerState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.blue,
-              content: Text(state.message),
+              content: Text(state.errorMessage),
             ),
           );
         }
       },
       builder: (context, state) {
-        if (state is NotificationsLoading) {
+        if (state is AppLoadingState) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is NotificationsLoadedSuccess) {
+        } else if (state is AppLoadedSuccess2) {
           final notifications = state.notifications.notifications;
           return Scaffold(
             backgroundColor: AppColors.primaryColor,
