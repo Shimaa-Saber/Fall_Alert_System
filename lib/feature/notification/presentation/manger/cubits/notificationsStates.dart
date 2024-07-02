@@ -1,6 +1,5 @@
 
-import '../../../data/model/NotificationModel.dart';
-
+/*
 abstract class Notificationsstates {
   const Notificationsstates();
 }
@@ -20,3 +19,4 @@ class NotificationsFailer extends Notificationsstates {
 
   const NotificationsFailer({required this.message});
 }
+*/

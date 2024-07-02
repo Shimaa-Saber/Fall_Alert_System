@@ -23,7 +23,7 @@ class AppLoadedSuccess extends AppState {
 }
 
 class AppLoadedSuccess2 extends AppState {
-  final NotificationsModel notifications; // Corrected line
+  final NotificationModel notifications; // Corrected line
 
   AppLoadedSuccess2(this.notifications);
 }

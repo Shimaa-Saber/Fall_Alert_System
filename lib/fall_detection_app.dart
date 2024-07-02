@@ -57,9 +57,9 @@ class _FallDetectionAppState extends State<FallDetectionApp> {
         BlocProvider<ChatCubit>(
           create: (context) => ChatCubit(DioConsumer(dio: Dio())),
         ),
-        BlocProvider<NotificationsCubit>(
-          create: (context) => NotificationsCubit(DioConsumer(dio: Dio())),
-        ),
+     //   BlocProvider<NotificationsCubit>(
+       //   create: (context) => NotificationsCubit(DioConsumer(dio: Dio())),
+        //),
         BlocProvider(
           create: (context) => HomeCubit(DioConsumer(dio: Dio())),
         ),
@@ -68,9 +68,6 @@ class _FallDetectionAppState extends State<FallDetectionApp> {
         ),
         BlocProvider<AppCubit>(
           create: (context) => AppCubit(DioConsumer(dio: Dio())),
-        ),
-        BlocProvider<NotificationsCubit>(
-          create: (context) => NotificationsCubit(DioConsumer(dio: Dio())),
         ),
 
       ],

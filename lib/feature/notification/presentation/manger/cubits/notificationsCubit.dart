@@ -1,3 +1,4 @@
+/*
 import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
 import 'package:fall_detection/core/services/network/error/exceptions.dart';
 import 'package:fall_detection/feature/notification/presentation/manger/cubits/notificationsStates.dart';
@@ -9,7 +10,7 @@ import '../../../data/model/NotificationModel.dart';
 class NotificationsCubit extends Cubit<Notificationsstates> {
   NotificationsCubit(this.api) : super(NotificationIntialState());
   final ApiConsumer api;
-  Notification? notifications;
+  NotificationData? notifications;
 
   Future<void> fetchNotifications(String token) async {
     emit(NotificationsLoading());
@@ -19,10 +20,11 @@ class NotificationsCubit extends Cubit<Notificationsstates> {
         EndPoints.getAllNotifications,
         token: token,
       );
-      final notificationsResponse = NotificationsModel.fromJson(response);
+      final notificationsResponse = NotificationData.fromJson(response);
       emit(NotificationsLoadedSuccess(notificationsResponse));
     } on ServerException catch (error) {
       emit(NotificationsFailer(message: error.errModel.message!));
     }
   }
 }
+*/

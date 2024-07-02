@@ -42,7 +42,7 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-  Notification? notifications;
+  NotificationModel? notifications;
 
   Future<void> fetchNotifications() async {
     emit(AppLoadingState());
@@ -51,7 +51,7 @@ class AppCubit extends Cubit<AppState> {
         EndPoints.getAllNotifications,
         // token: token,
       );
-      final notificationsResponse = NotificationsModel.fromJson(response);
+      final notificationsResponse = NotificationModel.fromJson(response);
       emit(AppLoadedSuccess2(notificationsResponse));
     } on ServerException catch (error) {
       emit(AppFailerState(errorMessage: error.errModel.message!));

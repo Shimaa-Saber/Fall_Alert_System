@@ -29,12 +29,12 @@ class NotificationScreen extends StatelessWidget {
         if (state is AppLoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is AppLoadedSuccess2) {
-          final notifications = state.notifications.notifications;
+          final notifications = state.notifications!.data;
 
           // Debug: Print notifications list length and contents
           print('Notifications count: ${notifications.length}');
           print(
-              'Notifications data: ${notifications.map((e) => e.data.content).toList()}');
+              'Notifications data: ${notifications.map((e) => e.content).toList()}');
 
           if (notifications.isEmpty) {
             return Scaffold(
@@ -92,13 +92,13 @@ class NotificationScreen extends StatelessWidget {
 
                         // Debug: Print notification data
                         print(
-                            'Notification content: ${notification.data.content}');
+                            'Notification content: ${notification.content}');
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: NotificationContainerInfo(
                             icon: Icons.phone,
-                            content: notification.data.content ?? '',
+                            content: notification.content ?? '',
                             min: notification.createdAt ??
                                 DateTime.now().toIso8601String(),
                             image: AppAssetsImages.fallingImage,

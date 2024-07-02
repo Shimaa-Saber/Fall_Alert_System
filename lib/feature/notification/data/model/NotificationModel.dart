@@ -1,61 +1,22 @@
-class NotificationsModel {
-  final List<Notification> notifications;
+class NotificationModel {
+  final List<NotificationData> data;
 
-  NotificationsModel({
-    required this.notifications,
-  });
+  NotificationModel({required this.data});
 
-  factory NotificationsModel.fromJson(Map<String, dynamic> json) {
-    var notificationsList = json['notifications'] as List<dynamic>? ?? [];
-    List<Notification> notifications =
-        notificationsList.map((i) => Notification.fromJson(i)).toList();
+  factory NotificationModel.fromJson(Map<String, dynamic> json) {
+    var list = json['data'] as List;
+    List<NotificationData> dataList = list.map((i) => NotificationData.fromJson(i)).toList();
 
-    return NotificationsModel(
-      notifications: notifications,
-    );
+    return NotificationModel(data: dataList);
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'notifications':
-          notifications.map((notification) => notification.toJson()).toList(),
+      'data': data.map((notification) => notification.toJson()).toList(),
     };
   }
 }
-
-class Notification {
-  final Data data;
-  final String createdAt;
-  final String updatedAt;
-  final int lenght;
-
-  Notification({
-    required this.data,
-    required this.updatedAt,
-    required this.createdAt,
-    required this.lenght,
-  });
-
-  factory Notification.fromJson(Map<String, dynamic> json) {
-    return Notification(
-      data: Data.fromJson(json['data']) ?? Data.fromJson({}),
-      updatedAt: json['updated_at'] ?? '',
-      createdAt: json['created_at'] ?? '',
-      lenght: json['length'] ?? 0,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'data': data.toJson(),
-      'updated_at': updatedAt,
-      'created_at': createdAt,
-      'length': lenght,
-    };
-  }
-}
-
-class Data {
+class NotificationData {
   final int id;
   final String title;
   final String content;
@@ -64,25 +25,25 @@ class Data {
   final String createdAt;
   final String updatedAt;
 
-  Data({
+  NotificationData({
     required this.id,
     required this.title,
-    required this.updatedAt,
     required this.content,
-    required this.createdAt,
     required this.type,
     required this.userId,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory NotificationData.fromJson(Map<String, dynamic> json) {
+    return NotificationData(
       id: json['id'],
       title: json['title'],
-      updatedAt: json['updated_at'],
-      createdAt: json['created_at'],
-      userId: json['user_id'],
-      type: json['type'],
       content: json['content'],
+      type: json['type'],
+      userId: json['user_id'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
     );
   }
 
@@ -90,11 +51,11 @@ class Data {
     return {
       'id': id,
       'title': title,
-      'updated_at': updatedAt,
-      'created_at': createdAt,
-      'user_id': userId,
-      'type': type,
       'content': content,
+      'type': type,
+      'user_id': userId,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
     };
   }
 }
