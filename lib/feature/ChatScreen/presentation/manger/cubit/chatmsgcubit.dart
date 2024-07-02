@@ -1,5 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
-
+/*
 import 'package:bloc/bloc.dart';
 import 'package:fall_detection/core/services/network/api/api_consumer.dart';
 import 'package:fall_detection/core/services/network/error/exceptions.dart';
@@ -39,3 +39,4 @@ class ChatmsgCubit extends Cubit<ChatmsgState> {
     }
   }
 }
+*/
