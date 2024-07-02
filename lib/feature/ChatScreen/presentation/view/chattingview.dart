@@ -194,11 +194,8 @@ import 'package:fall_detection/core/services/network/api/api_endpoints.dart';
 import 'package:fall_detection/core/services/shared_prefrences/shared_pref.dart';
 import 'package:fall_detection/feature/ChatScreen/presentation/widget/chattingbuble.dart';
 import 'package:fall_detection/feature/ChatScreen/presentation/widget/recevingchatbuble.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../manger/cubit/chatmsgcubit.dart';
-import '../manger/cubit/chatmsgstatus.dart';
 import './pusher_services.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -240,7 +237,10 @@ class _ChatViewState extends State<ChatView> {
   }
 
 //, String token
-  Future<void> _sendMessage(String message, String token) async {
+  Future<void> _sendMessage(
+    String message,
+    String token,
+  ) async {
     try {
       final response = await _dio.post(
         "https://fallyguardapi.me/api/v1/chat/31",
@@ -271,265 +271,127 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ChatmsgCubit, ChatmsgState>(
-      listener: (context, state) {
-        if (state is ChatmsgError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.blue,
-              content: Text(state.message),
-            ),
-          );
-        }
-      },
-      builder: (context, state) {
-        if (state is ChatmsgLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ChatmsgLoadedSuccess) {
-          final chatsmsgs = state.chatmsgResponse.chatdata;
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.lightBlue,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lightBlue,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Karine',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          'Online',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
+                  Text(
+                    'Karine',
+                    style: TextStyle(
+                      fontSize: 20,
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Image.asset(
-                    'assets/images/patientfall.png',
-                    height: 50,
+                  Text(
+                    'Online',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),
             ),
-            body: Column(
+            const SizedBox(width: 8),
+            Image.asset(
+              'assets/images/patientfall.png',
+              height: 50,
+            ),
+          ],
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final message = _messages[index];
+                final messageContent = message['message']!;
+                final sender = message['sender']!;
+                if (sender == 'you') {
+                  return ChatBuble(message: messageContent);
+                } else {
+                  return RecevingChatBuble(message: messageContent);
+                }
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: _messages.length,
-                    itemBuilder: (context, index) {
-                      final message = _messages[index];
-                      final messageContent = message['message']!;
-                      final sender = message['sender']!;
-                      if (sender == 'you') {
-                        return ChatBuble(message: messageContent);
-                      } else {
-                        return RecevingChatBuble(message: messageContent);
-                      }
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _controller,
-                          decoration: InputDecoration(
-                            hintText: ' message...',
-                            prefixIcon: const Icon(
-                              Icons.add,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: const Icon(
-                              Icons.emoji_emotions,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.r),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.r),
-                              borderSide: const BorderSide(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.r),
-                              borderSide: const BorderSide(
-                                color: Colors.lightBlue,
-                              ),
-                            ),
-                          ),
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      hintText: ' message...',
+                      prefixIcon: const Icon(
+                        Icons.add,
+                        color: Colors.grey,
+                      ),
+                      suffixIcon: const Icon(
+                        Icons.emoji_emotions,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        child: IconButton(
-                          icon: const Icon(Icons.send),
-                          onPressed: () {
-                            final message = _controller.text;
-                            if (message.isNotEmpty) {
-                              _sendMessage(
-                                message,
-                                CacheHelper.sharedPreferences
-                                        .getString(ApiKey.token) ??
-                                    '',
-                                // CacheHelper.sharedPreferences.getInt(
-                                //       ApiKey.homeUserId,
-                                //     ) ??
-                                //     0,
-                                // CacheHelper.sharedPreferences.getInt(ApiKey.userId) ??
-                                //   '',
-
-                                // CacheHelper.sharedPreferences
-                                //         .getString(ApiKey.token) ??
-                                //     '',
-                              );
-                              _controller.clear();
-                            }
-                          },
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.r),
+                        borderSide: const BorderSide(
+                          color: Colors.lightBlue,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.lightBlue,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Karine',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          'Online',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Image.asset(
-                    'assets/images/patientfall.png',
-                    height: 50,
-                  ),
-                ],
-              ),
-            ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: _messages.length,
-                    itemBuilder: (context, index) {
-                      final message = _messages[index];
-                      final messageContent = message['message']!;
-                      final sender = message['sender']!;
-                      if (sender == 'you') {
-                        return ChatBuble(message: messageContent);
-                      } else {
-                        return RecevingChatBuble(message: messageContent);
+                ),
+                const SizedBox(width: 8),
+                CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed: () {
+                      final message = _controller.text;
+                      if (message.isNotEmpty) {
+                        _sendMessage(
+                          message,
+                          CacheHelper.sharedPreferences
+                                  .getString(ApiKey.token) ??
+                              '',
+                          // CacheHelper.sharedPreferences
+                          //         .getInt(ApiKey.homeUserId) ??
+                          //     0,
+                          // CacheHelper.sharedPreferences.getInt(
+                          //       ApiKey.homeUserId,
+                          //     ) ??
+                          //     0,
+                          // CacheHelper.sharedPreferences.getInt(ApiKey.userId) ??
+                          //   '',
+                          // CacheHelper.sharedPreferences
+                          //         .getString(ApiKey.token) ??
+                          //     '',
+                        );
+                        _controller.clear();
                       }
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _controller,
-                          decoration: InputDecoration(
-                            hintText: ' message...',
-                            prefixIcon: const Icon(
-                              Icons.add,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: const Icon(
-                              Icons.emoji_emotions,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.r),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.r),
-                              borderSide: const BorderSide(
-                                color: Colors.blue,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.r),
-                              borderSide: const BorderSide(
-                                color: Colors.lightBlue,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        child: IconButton(
-                          icon: const Icon(Icons.send),
-                          onPressed: () {
-                            final message = _controller.text;
-                            if (message.isNotEmpty) {
-                              _sendMessage(
-                                message,
-                                CacheHelper.sharedPreferences
-                                        .getString(ApiKey.token) ??
-                                    '',
-                                // CacheHelper.sharedPreferences.getInt(
-                                //       ApiKey.homeUserId,
-                                //     ) ??
-                                //     0,
-                                // CacheHelper.sharedPreferences.getInt(ApiKey.userId) ??
-                                //   '',
-
-                                // CacheHelper.sharedPreferences
-                                //         .getString(ApiKey.token) ??
-                                //     '',
-                              );
-                              _controller.clear();
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
-          );
-        }
-      },
+          ),
+        ],
+      ),
     );
   }
 }
