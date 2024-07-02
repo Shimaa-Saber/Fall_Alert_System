@@ -84,7 +84,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
       emit(SignInSuccess());
     } on ServerException catch (e) {
-      emit(SignInFailure(errMessage: e.errModel.message!));
+      emit(SignInFailure(errMessage: e.errModel.message??"the Provided credential are incorrect"));
     }
   }
 
