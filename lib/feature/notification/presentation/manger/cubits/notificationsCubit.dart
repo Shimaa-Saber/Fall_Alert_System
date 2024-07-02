@@ -11,15 +11,16 @@ class NotificationsCubit extends Cubit<Notificationsstates> {
   final ApiConsumer api;
   Notification? notifications;
 
-  Future<void> fetchNotifications() async {
+  Future<void> fetchNotifications(String token) async {
     emit(NotificationsLoading());
 
     try {
-      final response = await api.get(EndPoints.getAllNotifications);
-      final notificationsResponse =
-      NotificationsModel.fromJson(response);
-      emit(NotificationsLoadedSuccess
-        (notificationsResponse));
+      final response = await api.get(
+        EndPoints.getAllNotifications,
+        token: token,
+      );
+      final notificationsResponse = NotificationsModel.fromJson(response);
+      emit(NotificationsLoadedSuccess(notificationsResponse));
     } on ServerException catch (error) {
       emit(NotificationsFailer(message: error.errModel.message!));
     }

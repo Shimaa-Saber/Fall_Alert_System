@@ -29,7 +29,6 @@ class AppCubit extends Cubit<AppState> {
 
   Chat? chats;
 
-
   Future<void> fetchChats() async {
     emit(AppLoadingState());
 
@@ -48,7 +47,10 @@ class AppCubit extends Cubit<AppState> {
   Future<void> fetchNotifications() async {
     emit(AppLoadingState());
     try {
-      final response = await api.get(EndPoints.getAllNotifications);
+      final response = await api.get(
+        EndPoints.getAllNotifications,
+        // token: token,
+      );
       final notificationsResponse = NotificationsModel.fromJson(response);
       emit(AppLoadedSuccess2(notificationsResponse));
     } on ServerException catch (error) {

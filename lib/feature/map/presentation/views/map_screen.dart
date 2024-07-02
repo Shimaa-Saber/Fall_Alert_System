@@ -38,9 +38,9 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('OpenStreetMap Example'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('OpenStreetMap Example'),
+      // ),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           if (state is HomeLoadingState) {
@@ -78,6 +78,7 @@ class _MapScreenState extends State<MapScreen> {
       ),
     );
   }
+
   Future<void> addMarkers(List<HomeScreenModel> homeScreenModels) async {
     for (var person in homeScreenModels) {
       try {
@@ -87,15 +88,16 @@ class _MapScreenState extends State<MapScreen> {
             longitude: person.longitude,
           ),
           markerIcon: MarkerIcon(
-            iconWidget:  IconButton(
-              onPressed: (){
+            iconWidget: IconButton(
+              onPressed: () {
                 context.read<PatientCubit>().fetchPatientData();
                 Navigator.pushNamed(context, Routes.patientScreen);
               },
-              icon: Icon( Icons.location_on,
+              icon: const Icon(
+                Icons.location_on,
                 color: Colors.red,
-                size: 48,),
-
+                size: 48,
+              ),
             ),
           ),
         );
@@ -105,4 +107,3 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 }
-

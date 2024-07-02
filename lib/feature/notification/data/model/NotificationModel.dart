@@ -7,7 +7,8 @@ class NotificationsModel {
 
   factory NotificationsModel.fromJson(Map<String, dynamic> json) {
     var notificationsList = json['notifications'] as List<dynamic>? ?? [];
-    List<Notification> notifications = notificationsList.map((i) => Notification.fromJson(i)).toList();
+    List<Notification> notifications =
+        notificationsList.map((i) => Notification.fromJson(i)).toList();
 
     return NotificationsModel(
       notifications: notifications,
@@ -16,7 +17,8 @@ class NotificationsModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'notifications': notifications.map((notification) => notification.toJson()).toList(),
+      'notifications':
+          notifications.map((notification) => notification.toJson()).toList(),
     };
   }
 }
@@ -25,18 +27,21 @@ class Notification {
   final Data data;
   final String createdAt;
   final String updatedAt;
+  final int lenght;
 
   Notification({
     required this.data,
     required this.updatedAt,
     required this.createdAt,
+    required this.lenght,
   });
 
   factory Notification.fromJson(Map<String, dynamic> json) {
     return Notification(
-      data: Data.fromJson(json['data']),
-      updatedAt: json['updated_at'],
-      createdAt: json['created_at'],
+      data: Data.fromJson(json['data']) ?? Data.fromJson({}),
+      updatedAt: json['updated_at'] ?? '',
+      createdAt: json['created_at'] ?? '',
+      lenght: json['length'] ?? 0,
     );
   }
 
@@ -45,6 +50,7 @@ class Notification {
       'data': data.toJson(),
       'updated_at': updatedAt,
       'created_at': createdAt,
+      'length': lenght,
     };
   }
 }

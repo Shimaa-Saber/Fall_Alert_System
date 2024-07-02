@@ -66,7 +66,6 @@ class PusherService {
           print("Pusher error: $message, code: $code, exception: $exception");
         },
       );
-
       await pusher.connect();
     } catch (e) {
       print("Pusher initialization error: $e");
