@@ -1,4 +1,4 @@
-
+/*
 
 import '../../../data/model/chatmsgmodel.dart';
 
@@ -21,4 +21,4 @@ class ChatmsgError extends ChatmsgState {
 
   const ChatmsgError({required this.message});
 }
-
+*/
